@@ -1,0 +1,91 @@
+.signup #icon {
+ display: none;
+}
+
+.signup #upload {
+ cursor: pointer;
+ width: 400px;
+ height: 400px;
+ text-align: center;
+ padding-top: 170px;
+ font-size: 30px;
+ opacity: 0;
+ float: left;
+ position: relative;
+ top: 20px;
+ left: 50%;
+ transform: translate( -50%, 0 );
+ z-index: 2;
+}
+
+.signup #upload:hover {
+ opacity: 0.2;
+}
+
+.signup h1 {
+ margin-left: 9%;
+ position: relative;
+ bottom: 10px;
+}
+
+.signup #profileImg {
+ z-index: 1;
+ position: relative;
+ top: -380px;
+ left: 50%;
+ transform: translate( -50%, 0 );
+}
+
+.signup .form-group {
+ margin-right: 10%;
+ margin-left: 10%;
+}
+
+.signup #submit {
+ width: 100px;
+ position: relative;
+ left: 100%;
+ transform: translate( -100%, 0 );
+}
+
+.signup #clear {
+ width: 100px;
+}
+
+.signup #checkName {
+ float: left;
+ position: relative;
+ left: 103%;
+ bottom: 30px;
+ opacity: 0.5;
+}
+
+.signup #checkPassword {
+ float: left;
+ position: relative;
+ left: 103%;
+ bottom: 30px;
+ opacity: 0.5;
+}
+
+.signup #checkPasswordAgain {
+ float: left;
+ position: relative;
+ left: 103%;
+ bottom: 50px;
+ opacity: 0.5;
+}
+
+.signup #passwordAgain {
+ position: relative;
+ bottom: 20px;
+}
+
+.signup #emailLabel {
+ position: relative;
+ right: 25px;
+}
+
+.signup .IntegralPic {
+ height: 430px;
+}

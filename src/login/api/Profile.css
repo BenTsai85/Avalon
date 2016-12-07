@@ -1,0 +1,16 @@
+.profile h1 {
+ margin-left: 9%;
+ position: relative;
+ bottom: 10px;
+}
+
+.profile h3, h2 {
+ text-align: center;
+}
+
+
+.profile #profileImg {
+ position: relative;
+ left: 50%;
+ transform: translate( -50%, 0 );
+}

@@ -1,0 +1,43 @@
+.login h1 {
+ margin-left: 0px;
+ position: relative;
+ left: 8%;
+ bottom: 10px;
+}
+
+.login .form-group {
+ margin-right: 30%;
+ margin-left: 30%;
+}
+
+.login h2 {
+ margin-top: 100px;
+}
+
+.login #wrongPassword {
+ margin-right: 30%;
+ margin-left: 30%;
+}
+
+.login #submit {
+ position: absolute;
+ left: 40%;
+ transform: translate( -50%, 0 );
+}
+
+.login #signup {
+ margin-top: 10px;
+ position: absolute;
+ left: 60%;
+ transform: translate( -50%, 0 );
+}
+
+.jumbotron {
+ height: 200px;
+ /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2361b2+0,24e5cb+49,7db9e8+100 */
+ background: #2361b2; /* Old browsers */
+ background: -moz-linear-gradient(45deg,  #2361b2 0%, #24e5cb 49%, #7db9e8 100%); /* FF3.6-15 */
+ background: -webkit-linear-gradient(45deg,  #2361b2 0%,#24e5cb 49%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */
+ background: linear-gradient(45deg,  #2361b2 0%,#24e5cb 49%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2361b2', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}

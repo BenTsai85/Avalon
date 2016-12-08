@@ -72,3 +72,16 @@ server.listen( port );  // listen on port 3000
 
 const game = require( './game-api' );
 app.get( '/game', game( io ) );
+
+// var gameIO = io
+//   .of('/game')
+//   .on('connection', function (socket) {
+//     socket.emit('a message', {
+//         that: 'only'
+//       , '/chat': 'will get'
+//     });
+//     chat.emit('a message', {
+//         everyone: 'in'
+//       , '/chat': 'will get'
+//     });
+//   });

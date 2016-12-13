@@ -1,7 +1,7 @@
 const socket = io();
 let ID;
-socket.on( 'register', ( id ) => { ID = id; console.log( 'client ID=', ID ); } );
-socket.on( 'ready', ( e ) => { console.log( e ); } );
+socket.on( 'register', id => { ID = id; console.log( 'client ID=', ID ); } );
+socket.on( 'ready', e => { console.log( e ); } );
 
 function b() {
   console.log( 'testB' );

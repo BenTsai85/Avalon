@@ -30,8 +30,6 @@ class Profile extends Component {
           <li role="presentation"><a href="/">Logout</a></li>
         </ul>
         <h2>{ this.props.username }</h2>
-        <h3>{ this.props.email }</h3>
-        <img src={ this.props.icon ? this.props.icon.filename : 'https://thebenclark.files.wordpress.com/2014/03/facebook-default-no-profile-pic.jpg' } width='400px' height='400px' id="profileImg" />
         { this.renderList() }
       </section>
     );

@@ -56,7 +56,7 @@ const returnRouter = function ( io ) {
     console.log( 'vote' );
     let counter = 0;
     let vote = 0;
-    io.sockets.on( 'vote', ( e ) => {
+    io.sockets.on( 'vote', e => {
       ++counter;
       vote += e;
     } );
@@ -71,7 +71,7 @@ const returnRouter = function ( io ) {
     console.log( 'mission' );
     let counter = 0;
     let mission = 0;
-    io.sockets.on( 'vote', ( e ) => {
+    io.sockets.on( 'vote', e => {
       ++counter;
       mission += e;
     } );
@@ -103,7 +103,7 @@ const returnRouter = function ( io ) {
 
 
   function playing() {
-    const promise = new Promise( ( resolve ) => {
+    const promise = new Promise( resolve => {
       resolve( 'none' );
     } );
     while ( !end() ) {
@@ -120,7 +120,7 @@ const returnRouter = function ( io ) {
     }
   }
 
-  io.sockets.on( 'connection', ( socket ) => {
+  io.sockets.on( 'connection', socket => {
     allClients.push( socket.id );
     socket.emit( 'myid', socket.id );
     // socket.broadcast.emit('msg',allClients);

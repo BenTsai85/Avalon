@@ -7,8 +7,6 @@ class SignUp extends Component {
     this.state = {
       username: '',
       password: '',
-      email: '',
-      icon: null,
       checkName: false,
       passwordAgain: '',
     };
@@ -24,16 +22,10 @@ class SignUp extends Component {
     document.getElementById( 'checkPasswordAgain' ).src = 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR3gMHpsVgrgcch4c78ABRBzGjmf4NNztlo5ykhmg9hv0BHX3_U';
   }
 
-  loadImage( e ) {
-    this.setState( { icon: new Blob( [ e.target.files[ 0 ] ], { type: 'image/*' } ) } );
-  }
-
   clear() {
     this.setState( {
       username: '',
       password: '',
-      email: '',
-      icon: null,
       checkName: false,
       passwordAgain: '',
     } );
@@ -61,7 +53,7 @@ class SignUp extends Component {
 
   submit() {
     if ( !this.props.error && this.state.username !== '' && this.state.password.length >= 6 && this.state.password === this.state.passwordAgain )
-      this.props.signup( this.state.username, this.state.password, this.state.email, this.state.icon );
+      this.props.signup( this.state.username, this.state.password );
   }
 
   render() {
@@ -80,22 +72,16 @@ class SignUp extends Component {
               <img id='checkName' width="25px" height="25px"/>
             </div>
             <div className="form-group">
-              <label htmlFor="email" id="emailLabel">Email Address</label>
-              <input type="email" id="email" className="form-control" placeholder="Email"
-                value={ this.state.email }
-                onChange={ ( e ) => { this.setState( { email: e.target.value } ); } }/>
-            </div>
-            <div className="form-group">
               <label htmlFor="password">Password* ( longer than 5 )</label>
               <input type="password" id="password" className="form-control" placeholder="Password"
                 value={ this.state.password }
-                onChange={ ( e ) => { this.setState( { password: e.target.value } ); } }/>
+                onChange={ e => { this.setState( { password: e.target.value } ); } }/>
               <img id='checkPassword' width="25px" height="25px"/>
             </div>
             <div className="form-group">
               <input type="password" id="passwordAgain" className="form-control" placeholder="Please enter Password again"
                 value={ this.state.passwordAgain }
-                onChange={ ( e ) => { this.setState( { passwordAgain: e.target.value } ); } }/>
+                onChange={ e => { this.setState( { passwordAgain: e.target.value } ); } }/>
               <img id='checkPasswordAgain' width="25px" height="25px"/>
             </div>
             <div className="col-xs-12">
@@ -106,11 +92,6 @@ class SignUp extends Component {
                 <button id="clear" className="btn btn-default" onClick={ this.clear }>clear</button>
               </div>
             </div>
-          </div>
-          <div className="col-xs-12 col-sm-6 IntegralPic">
-            <label className="btn btn-default" id="upload" htmlFor="icon">Select Your Profile Picture</label>
-            <input id="icon" type="file" accept="image/*" onChange={ this.loadImage }/>
-            <img id="profileImg" className='thumbnail' src={ this.state.icon ? ( window.URL || window.webkitURL ).createObjectURL( this.state.icon ) : 'https://thebenclark.files.wordpress.com/2014/03/facebook-default-no-profile-pic.jpg' } width='400px' height='400px' />
           </div>
         </form>
       </div>

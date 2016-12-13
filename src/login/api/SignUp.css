@@ -1,39 +1,7 @@
-.signup #icon {
- display: none;
-}
-
-.signup #upload {
- cursor: pointer;
- width: 400px;
- height: 400px;
- text-align: center;
- padding-top: 170px;
- font-size: 30px;
- opacity: 0;
- float: left;
- position: relative;
- top: 20px;
- left: 50%;
- transform: translate( -50%, 0 );
- z-index: 2;
-}
-
-.signup #upload:hover {
- opacity: 0.2;
-}
-
 .signup h1 {
  margin-left: 9%;
  position: relative;
  bottom: 10px;
-}
-
-.signup #profileImg {
- z-index: 1;
- position: relative;
- top: -380px;
- left: 50%;
- transform: translate( -50%, 0 );
 }
 
 .signup .form-group {
@@ -79,13 +47,4 @@
 .signup #passwordAgain {
  position: relative;
  bottom: 20px;
-}
-
-.signup #emailLabel {
- position: relative;
- right: 25px;
-}
-
-.signup .IntegralPic {
- height: 430px;
 }

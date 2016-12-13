@@ -37,10 +37,10 @@ const socket = io();
 // }
 
 
-socket.on( 'msg', ( e ) => { console.log( e ); } );
-socket.on( 'myid', ( e ) => { init( e, 'myid' ); } );
-socket.on( 'start', ( e ) => { init( e, 'start' ); } );
-socket.on( 'asign_Leader', ( e ) => { init( e, 'asign_Leader' ); } );
+socket.on( 'msg', e => { console.log( e ); } );
+socket.on( 'myid', e => { init( e, 'myid' ); } );
+socket.on( 'start', e => { init( e, 'start' ); } );
+socket.on( 'asign_Leader', e => { init( e, 'asign_Leader' ); } );
 
 function init( e, command ) {
   console.log( 'init', command );
@@ -69,15 +69,15 @@ class App extends Component {
     this.vote = this.vote.bind( this );
     this.mission = this.mission.bind( this );
     init = init.bind( this );
-    socket.on( 'setStage', ( e ) => { this.setState( { stage: e } ); } );
-    socket.on( 'asign_Leader', ( e ) => {
+    socket.on( 'setStage', e => { this.setState( { stage: e } ); } );
+    socket.on( 'asign_Leader', e => {
       this.setState( { leader: e } );
       if ( this.state.leader === this.state.ID )
         this.setState( { stage: 'chooseTeam' } );
       else
         this.setState( { stage: 'wait' } );
     } );
-    socket.on( 'players', ( e ) => { this.setState( { players: e } ); } );
+    socket.on( 'players', e => { this.setState( { players: e } ); } );
     this.submit = this.submit.bind( this );
   }
 
@@ -104,25 +104,25 @@ class App extends Component {
         <li>game:{this.state.game.map( v => v )}</li>
         <li>stage:{this.state.stage}</li>
         <li>leader:{this.state.leader}</li>
-        <button onClick={() => { this.vote( 1 ); }}>positive vote</button>
-        <button onClick={() => { this.vote( 0 ); }}>negtive vote</button>
-        <button onClick={() => { this.mission( 1 ); }}>mission success</button>
-        <button onClick={() => { this.mission( 0 ); }}>mission fail</button>
-        <button onClick={() => {}}>Go Mission</button>
-        <button onClick={() => { socket.emit( 'a', 'none' ); }}>Test</button>
-        <button onClick={() => { this.submit(); }}>Submit(use only when leader)</button>
+        <button onClick={ () => { this.vote( 1 ); } }>positive vote</button>
+        <button onClick={ () => { this.vote( 0 ); } }>negtive vote</button>
+        <button onClick={ () => { this.mission( 1 ); } }>mission success</button>
+        <button onClick={ () => { this.mission( 0 ); } }>mission fail</button>
+        <button onClick={ () => {} }>Go Mission</button>
+        <button onClick={ () => { socket.emit( 'a', 'none' ); } }>Test</button>
+        <button onClick={ () => { this.submit(); } }>Submit(use only when leader)</button>
         <div>
           {
 
             this.state.players.map( ( v, i ) => (
-                <Player choose={( e ) => {
+                <Player choose={ e => {
                   this.state.chooser[ i ] = !this.state.chooser[ i ];
                   this.setState( { chooser: this.state.chooser } );
                   if ( e.target.className === 'chosen' )
                     e.target.className = '';
                   else
                     e.target.className = 'chosen';
-                }} name={v} key={i} id={i}> </Player>
+                } } name={ v } key={ i } id={ i }> </Player>
             ) )
           }
         </div>

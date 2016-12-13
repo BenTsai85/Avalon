@@ -14,8 +14,6 @@ class App extends Component {
       username: '',
       password: '',
       id: 0,
-      email: '',
-      icon: null,
       friendlist: [],
       error: false,
     };
@@ -36,15 +34,12 @@ class App extends Component {
   }
 
   login( username, password ) {
-    const loginForm = new FormData();
-    loginForm.append( 'username', username );
-    loginForm.append( 'password', password );
     fetch( '/api/login', {
       method: 'POST',
-      body: loginForm,
+      body: JSON.stringify( { username, password } ),
     } )
       .then( res => res.json() )
-      .then( ( data ) => {
+      .then( data => {
         if ( typeof data.id === 'undefined' )
           this.setState( { error: true } );
         else {
@@ -53,33 +48,26 @@ class App extends Component {
             password,
             username,
             friendlist: data.friendlist,
-            email: data.email,
-            icon: data.icon,
           } );
           location.hash = '#/users';
         }
       } )
-      .catch( ( error ) => {
+      .catch( error => {
         console.log( 'Login Error!' );
       } );
   }
 
   signup( username, password, email, icon ) {
-    const signUpForm = new FormData();
-    signUpForm.append( 'username', username );
-    signUpForm.append( 'password', password );
-    signUpForm.append( 'email', email );
-    signUpForm.append( 'icon', icon );
     fetch( '/api/signup', {
       method: 'POST',
-      body: signUpForm,
+      body: JSON.stringify( { username, password } ),
     } )
       .then( res => res.text() )
-      .then( ( data ) => {
+      .then( data => {
         location.hash = '#/login';
         this.setState( { error: false } );
       } )
-      .catch( ( error ) => {
+      .catch( error => {
         console.log( 'Sign Up Error!' );
       } );
   }
@@ -92,23 +80,23 @@ class App extends Component {
       body: check,
     } )
       .then( res => res.json() )
-      .then( ( data ) => {
+      .then( data => {
         if ( data.success )
           this.setState( { error: false } );
         else
           this.setState( { error: true } );
       } )
-      .catch( ( error ) => {
+      .catch( error => {
         console.log( 'Check Name Error!' );
       } );
   }
 
   renderRoute() {
     if ( this.state.route === '/signup' )
-      return <SignUp signup={ this.signup } error={ this.state.error } loadImage={ this.loadImage } checkName={ this.checkName }/>;
+      return <SignUp signup={ this.signup } error={ this.state.error } checkName={ this.checkName }/>;
 
     if ( this.state.route === '/users' )
-      return <Profile username={ this.state.username } password={ this.state.password } email={ this.state.email } icon={ this.state.icon } friendlist={ this.state.friendlist } />;
+      return <Profile username={ this.state.username } password={ this.state.password } friendlist={ this.state.friendlist } />;
 
     return <Login login={ this.login } error={ this.state.error }/>;
   }

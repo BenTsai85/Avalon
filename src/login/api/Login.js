@@ -28,13 +28,13 @@ class Login extends Component {
             <label htmlFor="username" />
             <input type="text" id="username" className="form-control" placeholder="User Name"
               value={ this.state.username }
-              onChange={ ( e ) => { this.setState( { username: e.target.value } ); } }/>
+              onChange={ e => { this.setState( { username: e.target.value } ); } }/>
           </div>
           <div className="form-group" id="passwordDiv">
             <label htmlFor="password" />
             <input type="password" id="password" className="form-control" placeholder="Password"
               value={ this.state.password }
-              onChange={ ( e ) => { this.setState( { password: e.target.value } ); } }/>
+              onChange={ e => { this.setState( { password: e.target.value } ); } }/>
           </div>
           <input type="submit" value="submit" id="submit" className="btn btn-default" />
           <a href='?#/signup' id="signup">Sign Up</a>

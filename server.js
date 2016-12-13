@@ -1,16 +1,13 @@
-//= ====================================
+//= =====================================
 // Env. setting
-//= ====================================
+//= =====================================
 
 import path from 'path';
 import express from 'express';
 import webpack from 'webpack';
 import config_login from './webpack-login.config';
 import config_game from './webpack-game.config';
-import multer from 'multer';
-const upload = multer( { dest: 'inclasshackathon/uploads/' } );
-
-const bodyParser = require( 'body-parser' );
+import bodyParser from 'body-parser';
 
 const port = process.env.PORT || 3000;
 
@@ -36,22 +33,22 @@ app.use( require( 'webpack-dev-middleware' )( compiler_game, {
 } ) );
 
 
-//= ====================================
+//= =====================================
 // Sign Up & Login
-//= ====================================
+//= =====================================
 
 import userdata from './user';
 
-app.post( '/api/signup', upload.single( 'icon' ), ( req, res ) => {
-  userdata.signup( req.body.username, req.body.password, req.body.email, req.file );
+app.post( '/api/signup', ( req, res ) => {
+  userdata.signup( req.body.username, req.body.password );
   res.send( 'success' );
 } );
 
-app.post( '/api/login', upload.single(), ( req, res ) => {
+app.post( '/api/login', ( req, res ) => {
   res.send( userdata.login( req.body.username, req.body.password ) );
 } );
 
-app.post( '/api/checkName', upload.single(), ( req, res ) => {
+app.post( '/api/checkName', ( req, res ) => {
   res.json( { success: userdata.checkName( req.body.username ) } );
 } );
 
@@ -60,9 +57,9 @@ app.get( '/', ( req, res ) => {
 } );
 
 
-//= ====================================
+//= =====================================
 // Game
-//= ====================================
+//= =====================================
 
 
 import http from 'http';

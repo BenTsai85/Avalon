@@ -1,3 +1,50 @@
-.chosen	{
-	background: red;
+.blue {
+	background: blue;
+}
+
+.hide {
+	display: none;
+}
+
+.btn {
+	margin: 2em;
+}
+
+.tips {
+	opacity:0;
+	font-size: 4em;
+	animation-name: tips_animation;
+    animation-duration: 5s;
+}
+
+@keyframes tips_animation {
+
+    0%	{	
+    	font-size: 4em;
+    	color:red;
+    	display: inline-block;
+    	opacity:0;
+	}
+
+	20%	{	
+		font-size: 4em;
+		color:red;
+    	display: inline-block;
+    	opacity:1;
+	}
+
+	80%	{	
+		font-size: 4em;
+		color:red;
+    	display: inline-block;
+    	opacity:1;
+	}
+
+
+
+    100%	{	
+    	font-size: 4em;
+    	color:red;
+    	opacity:0;
+    }
 }

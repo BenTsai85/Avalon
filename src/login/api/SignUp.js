@@ -5,12 +5,12 @@ class SignUp extends Component {
   constructor() {
     super();
     this.state = {
-      username: '',
-      password: '',
-      email: '',
+      username: 'nickchen',
+      password: '12345678',
+      email: 'za8244@ntu.edu.tw',
       icon: null,
-      checkName: false,
-      passwordAgain: '',
+      checkName: true,
+      passwordAgain: '12345678',
     };
     this.loadImage = this.loadImage.bind( this );
     this.clear = this.clear.bind( this );
@@ -41,11 +41,10 @@ class SignUp extends Component {
 
   usernameChange( e ) {
     this.setState( { username: e.target.value } );
-    this.props.checkName( e.target.value );
   }
 
   componentDidUpdate() {
-    if ( !this.props.error && this.state.username !== '' )
+    if ( this.state.username !== '' )
       document.getElementById( 'checkName' ).src = 'http://www.clipartkid.com/images/415/compete-the-self-check-below-eY7Akc-clipart.png';
     else
       document.getElementById( 'checkName' ).src = 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR3gMHpsVgrgcch4c78ABRBzGjmf4NNztlo5ykhmg9hv0BHX3_U';
@@ -60,8 +59,30 @@ class SignUp extends Component {
   }
 
   submit() {
-    if ( !this.props.error && this.state.username !== '' && this.state.password.length >= 6 && this.state.password === this.state.passwordAgain )
-      this.props.signup( this.state.username, this.state.password, this.state.email, this.state.icon );
+    console.log('submit');
+    if ( this.state.username !== '' && this.state.password.length >= 6 && this.state.password === this.state.passwordAgain )
+      {
+        console.log('pass check');
+        const user = {
+          name:this.state.username,
+          password:this.state.password,
+          email:this.state.email,
+        };
+        console.log(user);
+        fetch('api/auth/signup', {
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              },
+              method: 'POST',
+              body: JSON.stringify(user),
+              credentials: 'same-origin',
+            }).then(res=>res.json())
+            .then(res=>{
+              if(res.status)
+                document.location.href = '/';
+            })
+      }
   }
 
   render() {
@@ -70,7 +91,7 @@ class SignUp extends Component {
         <div className="jumbotron">
           <h1>Foodzone <small>Sign Up</small></h1>
         </div>
-        <form onSubmit={ this.submit }>
+        <form>
           <div className="col-xs-12 col-sm-6">
             <div className="form-group">
               <label htmlFor="username">User Name*</label>
@@ -100,7 +121,7 @@ class SignUp extends Component {
             </div>
             <div className="col-xs-12">
               <div className="col-xs-6">
-                <input id="submit" className="btn btn-default" type="submit" value="submit" />
+                <input id="submit" onClick={()=>this.submit()} className="btn btn-default" type="submit" value="submit" />
               </div>
               <div className="col-xs-6">
                 <button id="clear" className="btn btn-default" onClick={ this.clear }>clear</button>

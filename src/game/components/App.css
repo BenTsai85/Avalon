@@ -1,50 +1,32 @@
-.blue {
-	background: blue;
+.character_explaination{
+	background: rgba(0,0,0,0.8);
+	height: 20em;
+	width: 40em;
+	position: relative;
+	text-align: center;
+	top:-15em;
+	left:0em;
+	border-radius: 1em;
+	color:white;
+	font-size: 2em;
 }
 
-.hide {
-	display: none;
+.margin{
+	margin:0.1em;
+	width: 4em;
+	height: 2.4em;
+	font-size: 2.5em;
 }
-
-.btn {
-	margin: 2em;
-}
-
-.tips {
-	opacity:0;
-	font-size: 4em;
-	animation-name: tips_animation;
+.tips{
+	font-size: 3em;
+	animation-name: example;
     animation-duration: 5s;
+    animation-iteration-count: 1;
 }
 
-@keyframes tips_animation {
-
-    0%	{	
-    	font-size: 4em;
-    	color:red;
-    	display: inline-block;
-    	opacity:0;
-	}
-
-	20%	{	
-		font-size: 4em;
-		color:red;
-    	display: inline-block;
-    	opacity:1;
-	}
-
-	80%	{	
-		font-size: 4em;
-		color:red;
-    	display: inline-block;
-    	opacity:1;
-	}
-
-
-
-    100%	{	
-    	font-size: 4em;
-    	color:red;
-    	opacity:0;
-    }
+@keyframes example {
+    0%     {  color: rgba(255,0,0,0); }
+    20%	   {  color: rgba(255,0,0,1); }
+    80%	   {  color: rgba(255,0,0,1); }
+    100%   {  color: rgba(255,0,0,0); }
 }

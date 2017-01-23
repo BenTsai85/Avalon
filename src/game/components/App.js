@@ -5,8 +5,8 @@ import assert from 'assert';
 import PlayerOwn from './PlayerOwn.js';
 // import * from './client.js'
 // import SingleUserPage from './SingleUserPage';
-const socket = io();
-
+// const socket = io();
+const socket = io.connect('http://localhost');
 function fadeIn( elem, speed, opacity ) {
   speedspeed = speed || 20;
   opacityopacity = opacity || 100;
@@ -42,7 +42,9 @@ class App extends Component {
       tips: [ 'className', 'Message' ],
       test: '',
       voted: false,
-
+      show_explaination: false,
+      is_bad_men: Array( this.props.player_number ),
+      is_Merlin: Array( this.props.player_number ),
     };
     this.new_round_reset = this.new_round_reset.bind( this );
     this.vote = this.vote.bind( this );
@@ -52,9 +54,13 @@ class App extends Component {
     this.test = this.test.bind( this );
     this.render_test = this.render_test.bind( this );
 
-    for ( let i = 0; i < this.props.player_number; ++i )
+    for ( let i = 0; i < this.props.player_number; ++i ) {
       this.state.players_state[ i ] = 'none';
+      this.state.is_bad_men[ i ] = false;
+      this.state.is_Merlin[ i ] = false;
+    }
 
+    socket.emit( 'player_number', this.props.player_number );
     console.log( 'this.players_state', this.state.players_state );
     socket.on( 'msg', ( e ) => { console.log( e ); } );
     socket.on( 'myid', e => this.setState( { ID: e } ) );
@@ -69,6 +75,8 @@ class App extends Component {
 
     socket.on( 'assign_leader', ( e ) => {
       console.log( 'assign_leader', e );
+      for ( let i = 0; i < this.props.player_number; ++i )
+        this.state.players_state[ i ] = 'none';
       this.setState( { leader: e } );
       this.setState( { stage: 'choosingTeam' } );
       if ( e === this.state.ID )
@@ -111,8 +119,8 @@ class App extends Component {
           5000 );
       }
       else {
-        this.show_tips( [ 'Vote Fail!'] );
-        setTimeout(()=>this.new_round_reset(),5000);
+        this.show_tips( [ 'Vote Fail!' ] );
+        setTimeout( () => this.new_round_reset(), 5000 );
       }
     } );
 
@@ -120,7 +128,7 @@ class App extends Component {
       console.log( 'inform_mission_outcome', e );
       if ( e )
         this.show_tips( [ 'Mission Success' ] );
-      else ( e );
+      else
         this.show_tips( [ 'Mission Fail' ] );
       setTimeout( () => {
         this.setState( { games_record: [ ...this.state.games_record, e ] } );
@@ -130,7 +138,7 @@ class App extends Component {
     } );
 
     socket.on( 'game_over', ( e ) => {
-      if ( e ) {
+      if ( e>0 ) {
         if ( this.state.team )
           this.show_tips( [ 'You Win!', 'Waiting bad men guess Merlin...' ] );
         else {
@@ -139,11 +147,12 @@ class App extends Component {
         }
         this.setState( { stage: 'choosingMerlin' } );
       }
-      else
-      if ( this.state.team )
-        this.show_tips( [ 'Poor Losers! QAQ HAHAHA!' ] );
-        else
-          this.show_tips( [ 'Congratulations! You Win!' ] );
+      else {
+        if ( this.state.team )
+          this.show_tips( [ 'Poor Losers! QAQ HAHAHA!' ] );
+          else
+        this.show_tips( [ 'Congratulations! You Win!' ] );
+      }
     } );
 
     socket.on( 'character', ( e ) => {
@@ -154,30 +163,45 @@ class App extends Component {
           || this.state.character === 'Oberon'
           || this.state.character === 'Morgana'
           )
-        this.setState( { team: true } );
+        this.setState( { team: false } );
       else if ( this.state.character === 'Merlin'
         || this.state.character === 'Percival'
         || this.state.character === 'Servant' )
-        this.setState( { team: false } );
+        this.setState( { team: true } );
     } );
 
-    socket.on('accassin',(e)=>{
-      if(e)
-      {
-        if(this.state.team)
-          this.show_tips( [ 'Accassin success','You Lose!' ] );
+    socket.on( 'accassin', ( e ) => {
+      if ( e ) {
+        if ( this.state.team )
+          this.show_tips( [ 'Accassin success', 'You Lose!' ] );
         else
-          this.show_tips( [ 'Accassin fail','You Win!' ] );
+          this.show_tips( [ 'Accassin fail', 'You Win!' ] );
       }
       else
       {
-        if(this.state.team)
-          this.show_tips(['Accassin Fail','You win!']);
-        else
-          this.show_tips(['Accassin Fail','You lose!']);
+        if ( this.state.team )
+          this.show_tips( [ 'Accassin Fail', 'You win!' ] );
+          else
+            this.show_tips( [ 'Accassin Fail', 'You lose!' ] );
       }
-    });
-    // socket.on('',()=>{});
+
+    } );
+    socket.on( 'set_skill', ( e ) => {
+      console.log( 'set_skill', e );
+      console.log(( ( !this.state.team ) && (this.character !== 'Oberon') ));
+
+      console.log( this.character === 'Merlin' );
+      if ( ( ( !this.state.team ) && (this.character !== 'Oberon' )) ||
+              ( this.character === 'Merlin' ) ) {
+        console.log('merlin or bad men not oberon');
+        for ( let i = 0; i < e.length; ++i )
+          this.state.is_bad_men[ e[ i ] ] = true;
+      }
+      else if ( this.character === 'Percival' ) {
+        for ( let i = 0; i < e.length; ++i )
+          this.state.is_Merlin[ e[ i ] ] = true;
+      }
+    } );
     // socket.on('',()=>{});
 
 
@@ -185,7 +209,7 @@ class App extends Component {
     this.submit = this.submit.bind( this );
   }
   new_round_reset() {
-    this.show_tips([`Round${this.state.games_record.length+1}`]);
+    this.show_tips( [ `Round${this.state.games_record.length + 1}` ] );
     for ( let i = 0; i < this.props.player_number; ++i )
       this.state.players_state[ i ] = 'none';
     this.setState( { players_state: this.state.players_state } );
@@ -251,12 +275,12 @@ class App extends Component {
   stage_control() {
     if ( this.state.stage === 'voting' && !this.state.voted ) {
       return <div>
-        <button type="button" className="btn btn-primary"
+        <button type="button" className="btn btn-primary margin btn-lg"
           onClick={() => {
             socket.emit( 'vote', true );
             this.setState( { voted: true } );
           }}>Yes</button>
-        <button type="button" className="btn btn-primary"
+        <button type="button" className="btn btn-primary margin btn-lg"
           onClick={() => {
             socket.emit( 'vote', false );
             this.setState( { voted: true } );
@@ -266,12 +290,12 @@ class App extends Component {
     else if ( this.state.stage === 'missioning' && !this.state.voted ) {
       if ( this.state.mission_team_members.indexOf( this.state.index ) != -1 ) {
         return <div>
-          <button type="button" className="btn btn-primary"
+          <button type="button" className="btn btn-primary margin btn-lg"
             onClick={() => {
               socket.emit( 'mission', true );
               this.setState( { voted: true } );
-            }}>mission success</button>
-          <button type="button" className="btn btn-primary"
+            }}>Yes</button>
+          <button type="button" className="btn btn-primary margin btn-lg"
             onClick={() => { // Merlin Percival Servant
               if ( this.state.character === 'Merlin' ||
                  this.state.character === 'Percival' ||
@@ -281,7 +305,7 @@ class App extends Component {
                 socket.emit( 'mission', false );
                 this.setState( { voted: true } );
               }
-            }}>mission fail</button>
+            }}>No</button>
         </div>;
       }
       else
@@ -292,7 +316,7 @@ class App extends Component {
         return <div>
             <button type="button"
               onClick={( e ) => { this.submit( e ); } }
-              className={this.state.ID === this.state.leader ? 'btn btn-primary' + 'blue' : 'btn btn-primary' } >
+              className={this.state.ID === this.state.leader ? 'btn btn-primary margin btn-lg ' + 'blue' : 'btn btn-primary margin btn-lg' } >
               Submit</button>
           </div>;
       }
@@ -301,9 +325,9 @@ class App extends Component {
       return <div>
           <button type="button"
             onClick={( e ) => {
-              const idx=this.state.players_state.indexOf('chosen');
-              socket.emit('accassin',idx);
-              console.log('accassin',idx);
+              const idx = this.state.players_state.indexOf( 'chosen' );
+              socket.emit( 'accassin', idx );
+              console.log( 'accassin', idx );
             } }
             className={'btn btn-primary blue' } >
             Submit</button>
@@ -313,7 +337,6 @@ class App extends Component {
     return;
   }
   player_own_photo_onclick( e ) {
-    console.log('??????');
     const i = this.state.index;
     if ( this.state.players_state[ i ] === 'none' )
       this.state.players_state[ i ] = 'chosen';
@@ -323,11 +346,38 @@ class App extends Component {
         assert( 0 );
     this.setState( { players_state: this.state.players_state } );
   }
+
+  character_explaination() {
+    if ( !this.state.show_explaination )
+      return;
+    let text;
+    if ( this.state.character === 'Merlin' )
+      text = 'You Know Who Is Evel! Hide your character...';
+    else if ( this.state.character === 'Percival' )
+      text = 'You know who are Merlin amd Morgana';
+    else if ( this.state.character === 'Assassin' )
+      text = 'Find Merlin and kill him!';
+    else if ( this.state.character === 'Mordred' )
+      text = 'Merlin dont know you!';
+    else if ( this.state.character === 'Oberon' )
+      text = 'Your companions dont know you!';
+    else if ( this.state.character === 'Morgana' )
+      text = 'Percival doesnt know who is you or Merlin.';
+    else if ( this.state.character === 'Servant' )
+      text = 'Try to make mission success!';
+    else if ( this.state.character === 'Minion' )
+      text = 'Try to fail the missions with you companions!';
+    return <div className={'character_explaination'} onClick={() => this.setState( { show_explaination: false } )}>
+      <div className={'character_explaination_div'} >
+        {text}
+      </div>
+    </div>;
+  }
+
   render() {
     const render_player = this.state.players.map( ( v, i ) => (
         <div key={i} onClick={( e ) => {
-
-          if ( (this.state.stage === 'choosingTeam') && this.state.leader === this.state.ID ) {
+          if ( ( this.state.stage === 'choosingTeam' ) && this.state.leader === this.state.ID ) {
             if ( this.state.players_state[ i ] === 'none' )
               this.state.players_state[ i ] = 'chosen';
             else if ( this.state.players_state[ i ] === 'chosen' )
@@ -337,18 +387,30 @@ class App extends Component {
             this.setState( { players_state: this.state.players_state } );
           }
           else if ( this.state.stage === 'choosingMerlin' || this.state.character === 'Assassin' ) {
-            console.log('player is onclick');
+            console.log( 'player is onclick' );
             if ( this.state.players_state[ i ] === 'none' ) {
+              console.log('none?');
               for ( let j = 0; j < this.state.players_state.length; ++j )
-                this.state.players_state[ j ] = 'chosen';
+                this.state.players_state[ j ] = 'none';
               this.state.players_state[ i ] = 'chosen';
+              this.setState({players_state:this.state.players_state});
             }
             else if ( this.state.players_state[ i ] === 'chosen' )
+            {  
               this.state.players_state[ i ] = 'none';
+              this.setState({players_state:this.state.players_state});
+            }
           }
         }} >
-          <Player id={i} name={v} is_leader={this.state.stage === 'choosingTeam' && this.state.leader === v}
-            players_state={this.state.players_state[ i ]}> </Player>
+          <Player
+          id={i}
+          name={v}
+          is_leader={this.state.stage === 'choosingTeam' && this.state.leader === v}
+          players_state={this.state.players_state[ i ]}
+          is_Merlin={this.state.is_Merlin[ i ]}
+          is_bad_men={this.state.is_bad_men[ i ]}
+          >
+          </Player>
         </div>
     ) );
     const sorted_players = [];
@@ -358,12 +420,17 @@ class App extends Component {
     const filtered_sorted_render = sorted_players.filter( ( v, i ) => i );
 
     return (
-      <div className="container">
+      <div className="container app" >
+
         <div className="row">
-          <div className="col-xs-10">
-          { filtered_sorted_render }
-        </div>
-          <div className="chat col-xs-2">chat room</div>
+          <div className="col-xs-9">
+            { filtered_sorted_render }
+          </div>
+          <div className="chat col-xs-3" style={{ }}>
+            <row> <img src="map5.png" height="150" width="250"alt=""/>
+            </row>
+          chat room
+          </div>
         </div>
         <div className="row">
           <div className="col-xs-10">
@@ -373,11 +440,12 @@ class App extends Component {
                 character={this.state.character}
                 games_record={this.state.games_record}
                 stage={this.state.stage}
-                img_limk={'https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-9/12742136_736274853140630_5037882521848371900_n.jpg?oh=5753439b51912ba5823f002ec5909984&oe=58C1FA98'}
                 className={this.state.players_state[ this.state.index ]}
                 onclick={this.player_own_photo_onclick.bind( this )}
                 is_leader={this.state.stage === 'choosingTeam' && this.state.ID === this.state.leader}
+                change_show_explaination={() => this.setState( { show_explaination: true } )}
               ></PlayerOwn>
+              {this.character_explaination.bind( this )()}
             </div>
 
             <div>
@@ -388,16 +456,7 @@ class App extends Component {
             </div>
           </div>
           <div className="col-xs-2">
-            <button type="button" className="btn btn-primary"
-            onClick={() => {
-              socket.emit( 'msg', 'socket' );
-              this.test( [ 'first', 'second', 'third' ] );
-            }}>Test1</button>
-            <button type="button" className="btn btn-primary"
-            onClick={() => {
-              socket.emit( 'msg', 'socket' );
-              this.show_tips( [ 'Hello' ] );
-            }}>Test2</button>
+
           </div>
 
         </div>

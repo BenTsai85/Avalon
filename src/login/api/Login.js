@@ -5,8 +5,8 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      username: '',
-      password: '',
+      username: 'nickchen',
+      password: '12345678',
     };
   }
 
@@ -17,11 +17,33 @@ class Login extends Component {
     }
   }
 
+  login = () => {
+    console.log( 'login' );
+    const user = {
+      name: this.state.username,
+      password: this.state.password,
+    };
+    fetch('/api/auth/login/', {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(user),
+        credentials: 'same-origin',
+      }).then(res=>res.json())
+      .then(res=>{
+        if (res.status) {
+          document.location.href = '/gamelobby';
+        }
+      })
+    };
+
   render() {
     return (
       <div className="login jumbotron">
         <h1>Foodzone</h1>
-        <form action='#' onSubmit={ () => this.props.login( this.state.username, this.state.password ) } className="">
+        <form>
           <h2>Login</h2>
           <div id="wrongPassword"/>
           <div className="form-group">
@@ -36,7 +58,7 @@ class Login extends Component {
               value={ this.state.password }
               onChange={ ( e ) => { this.setState( { password: e.target.value } ); } }/>
           </div>
-          <input type="submit" value="submit" id="submit" className="btn btn-default" />
+          <input type="submit" value="submit" id="submit" className="btn btn-default" onClick={()=>this.login()}/>
           <a href='?#/signup' id="signup">Sign Up</a>
         </form>
       </div>

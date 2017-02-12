@@ -46,7 +46,6 @@ articleRouter.post('/login', async (req, res) => {
 	      name,
 	    },
   	});
- 	console.log('1222');
  	if(!user) {
 		res.json({ status: false });
 		return;

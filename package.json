@@ -9,7 +9,8 @@
     "start": "babel-node server.js",
     "lint": "eslint src server.js game-api.js webpack-game.config.js webpack-login.config.js --fix",
     "test": "jest",
-    "cover": "jest --coverage"
+    "cover": "jest --coverage",
+    "build-api": "babel-node api/game-api-components/GameApp.js"
   },
   "engines": {
     "node": ">=0.10.0"

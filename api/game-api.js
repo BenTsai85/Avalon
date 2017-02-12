@@ -1,6 +1,9 @@
+
 import { Router } from 'express';
 import path from 'path';
 import assert from 'assert';
+// import GameApp from './game-api-components/GameApp.js';
+
 
 const returnRouter = function ( io ) {
   var gameio = io.of('/game');
@@ -9,12 +12,6 @@ const returnRouter = function ( io ) {
   router.use( ( req, res ) => {
     res.sendFile( path.join( __dirname, 'game.html' ) );
   } );
-
-  // function assert( condition, message ) {
-  //   if ( !condition )
-  //     throw message || 'Assertion failed';
-  // }
-
 
   const allClients = []; // store socket.id
   let player_number;

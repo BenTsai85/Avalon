@@ -22,12 +22,5 @@ module.exports = {
         "no-mixed-operators": 0,
         "class-methods-use-this": 0,
         "array-bracket-spacing": [ "error", "always" ],
-        "arrow-parens": ["error", "as-needed"],
-        "comma-dangle": "off",
-        "import/prefer-default-export": "off",
-        "react/jsx-filename-extension": "off",
-        "react/prefer-stateless-function": "off",
-        "no-underscore-dangle": "off",
-        "react/jsx-curly-spacing": [ "error", "always" ]
     }
 };

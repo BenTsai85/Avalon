@@ -1,0 +1,63 @@
+.Player {
+    width: 14em;
+    height: 21em;
+	border-radius: 13px;
+	border: 3px solid black;
+	margin:3em;
+	float:left;
+	border: 3px solid black;
+	text-align: center;
+/*	animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count: 3;*/
+}
+li {
+	list-style-type: none;
+}
+
+.Merlin {
+	border-radius: 10px;
+	border: 3px solid blue;
+	background: blue;
+}
+
+.badman {
+	border-radius: 10px;
+	border: 3px solid red;
+	background: red;
+}
+/*@keyframes example {
+    0%   {	-webkit-box-shadow: 0 0px 37px 18px rgba(255,0,0,0.75);
+	-moz-box-shadow: 0 0px 37px 18px rgba(255,0,0,0.75);
+	box-shadow: 0 0px 37px 18px rgba(255,0,0,0.75);}
+    50%  {	-webkit-box-shadow: 0 0px 37px 18px rgba(255,255,0,0.75);
+	-moz-box-shadow: 0 0px 37px 18px rgba(255,255,0,0.75);
+	box-shadow: 0 0px 37px 18px rgba(255,255,0,0.75);}
+    100% {	-webkit-box-shadow: 0 0px 37px 18px rgba(255,0,0,0.75);
+	-moz-box-shadow: 0 0px 37px 18px rgba(255,0,0,0.75);
+	box-shadow: 0 0px 37px 18px rgba(255,0,0,0.75);}
+}*/
+
+/*red*/
+.chosen {
+	-webkit-box-shadow: 0 0px 37px 18px rgba(255,0,0,0.75);
+	-moz-box-shadow: 0 0px 37px 18px rgba(255,0,0,0.75);
+	box-shadow: 0 0px 37px 18px rgba(255,0,0,0.75);
+}
+
+/*yellow*/
+.team_member {
+	-webkit-box-shadow: 0 0px 37px 18px rgba(255,255,0,0.75);
+	-moz-box-shadow: 0 0px 37px 18px rgba(255,255,0,0.75);
+	box-shadow: 0 0px 37px 18px rgba(255,255,0,0.75);
+}
+
+.hide {
+	display: none;
+}
+
+.portrait {
+	/*position: relative;*/
+	margin: 0px auto;
+	/*top:3em;*/
+}

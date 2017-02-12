@@ -7,7 +7,7 @@
   "main": "server.js",
   "scripts": {
     "start": "babel-node server.js",
-    "lint": "eslint src server.js game-api.js webpack-game.config.js webpack-login.config.js --fix",
+    "lint": "eslint src server.js api/api.js api/auth.js webpack.config.js --fix",
     "test": "jest",
     "cover": "jest --coverage"
   },
@@ -36,17 +36,27 @@
     "serve": "^1.4.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.3",
-    "webpack-dev-middleware": "^1.8.4",
-    "webpack-hot-middleware": "^2.13.2"
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-quill": "^0.4.1",
+    "react-tagsinput": "^3.13.6",
+    "sanitize-html": "^1.13.0",
+    "sequelize": "^3.27.0",
+    "sequelize-cli": "^2.5.1"
   },
   "dependencies": {
-    "babel-polyfill": "^6.16.0",
+    "babel-polyfill": "^6.20.0",
+    "bcryptjs": "^2.4.0",
     "body-parser": "^1.15.2",
     "bootstrap": "^3.3.7",
     "express": "^4.14.0",
-    "isomorphic-fetch": "^2.2.1",
+    "express-session": "^1.14.2",
+    "multer": "^1.2.0",
+    "mysql": "^2.12.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
-    "socket.io": "^1.7.1"
+    "socket.io": "^1.7.1",
+    "webpack-dev-middleware": "^1.8.4",
+    "webpack-hot-middleware": "^2.13.2"
   }
 }

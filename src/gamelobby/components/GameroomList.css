@@ -1,0 +1,5 @@
+
+.panel .glyphicon,.list-group-item .glyphicon { margin-right:5px; }
+.list-group-item:hover{text-decoration: none;background-color: rgb(245, 245, 245);}
+.list-group { margin-bottom:0px; }
+.gameroom-body { width: 60em; height: 30em; overflow-y: scroll; float: left;}

@@ -1,3 +1,32 @@
-.chosen	{
-	background: red;
+.character_explaination{
+	background: rgba(0,0,0,0.8);
+	height: 20em;
+	width: 40em;
+	position: relative;
+	text-align: center;
+	top:-15em;
+	left:0em;
+	border-radius: 1em;
+	color:white;
+	font-size: 2em;
+}
+
+.margin{
+	margin:0.1em;
+	width: 4em;
+	height: 2.4em;
+	font-size: 2.5em;
+}
+.tips{
+	font-size: 3em;
+	animation-name: example;
+    animation-duration: 5s;
+    animation-iteration-count: 1;
+}
+
+@keyframes example {
+    0%     {  color: rgba(255,0,0,0); }
+    20%	   {  color: rgba(255,0,0,1); }
+    80%	   {  color: rgba(255,0,0,1); }
+    100%   {  color: rgba(255,0,0,0); }
 }

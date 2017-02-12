@@ -7,3 +7,10 @@
 .profile h3, h2 {
  text-align: center;
 }
+
+
+.profile #profileImg {
+ position: relative;
+ left: 50%;
+ transform: translate( -50%, 0 );
+}

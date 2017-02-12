@@ -1,71 +1,46 @@
-//= =====================================
-// Env. setting
-//= =====================================
 
-import path from 'path';
+
+//= ====================================
+// Env. setting
+//= ====================================
+
 import express from 'express';
+import session from 'express-session';
 import webpack from 'webpack';
-import config_login from './webpack-login.config';
-import config_game from './webpack-game.config';
-import bodyParser from 'body-parser';
+import config from './webpack.config';
 
 const port = process.env.PORT || 3000;
 
 const app = express();
-app.use( bodyParser.urlencoded( { extended: false } ) );
-app.use( bodyParser.json() );
-app.use( express.static( 'public' ) );
 
-const compiler_login = webpack( config_login );
-const compiler_game = webpack( config_game );
+app.use( session( {
+  secret: 'keyboard cat',
+  path: '/',
+  httpOnly: true,
+  resave: true,
+  saveUninitialized: false,
+} ) );
 
-app.use( require( 'webpack-dev-middleware' )( compiler_login, {
-  publicPath: config_login.output.publicPath,
+const compiler = webpack( config );
+
+app.use( require( 'webpack-dev-middleware' )( compiler, {
+  publicPath: config.output.publicPath,
   stats: {
     colors: true,
   },
 } ) );
-app.use( require( 'webpack-dev-middleware' )( compiler_game, {
-  publicPath: config_game.output.publicPath,
-  stats: {
-    colors: true,
-  },
-} ) );
 
 
-//= =====================================
+//= ====================================
 // Sign Up & Login
-//= =====================================
-
-import userdata from './user';
-
-app.post( '/api/signup', ( req, res ) => {
-  userdata.signup( req.body.username, req.body.password );
-  res.send( 'success' );
-} );
-
-app.post( '/api/login', ( req, res ) => {
-  res.send( userdata.login( req.body.username, req.body.password ) );
-} );
-
-app.post( '/api/checkName', ( req, res ) => {
-  res.json( { success: userdata.checkName( req.body.username ) } );
-} );
-
-app.get( '/', ( req, res ) => {
-  res.sendFile( path.join( __dirname, 'login.html' ) );
-} );
-
-
-//= =====================================
-// Game
-//= =====================================
-
+//= ====================================
+import auth from './api/auth';
+app.use( '/auth', auth );
 
 import http from 'http';
 const server = http.createServer( app );
 const io = require( 'socket.io' ).listen( server );  // pass a http.Server instance
 server.listen( port );  // listen on port 3000
 
-const game = require( './game-api' );
-app.get( '/game', game( io ) );
+import api from './api/api';
+app.use( '/', api( io ) );

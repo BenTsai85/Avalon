@@ -18,7 +18,7 @@ module.exports = {
         "strict": 0,
         "import/no-extraneous-dependencies": 0,
         "brace-style": [ "error", "stroustrup", { "allowSingleLine": true } ],
-        "curly": [ "error", "multi-or-nest" ],
+        // "curly": [ "error", "multi-or-nest" ],
         "no-mixed-operators": 0,
         "class-methods-use-this": 0,
         "array-bracket-spacing": [ "error", "always" ],

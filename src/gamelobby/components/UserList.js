@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
 import './UserList.css';
 
-var gamelobby_chat = io('http://localhost:3000/gamelobby');
+const gamelobby_chat = io( 'http://localhost:3000/gamelobby' );
 
 class App extends Component {
   constructor( props ) {
-      super( props );
-      this.state = {
-        users:[],
-      }
+    super( props );
+    this.state = {
+      users: [],
+    };
   }
   componentDidMount() {
-    gamelobby_chat.on('set_players',msg=>{
-      console.log('set players');
-      this.setState({users:msg});
-    });
+    gamelobby_chat.on( 'set_players', ( msg ) => {
+      console.log( 'set players' );
+      this.setState( { users: msg } );
+    } );
   }
   render() {
-      return <div>
+    return <div>
           <ul className="list-group lobby_user_list">
-            {this.state.users.map((v,i)=><li className="list-group-item" key={i}>{v}</li>)}
+            {this.state.users.map( ( v, i ) => <li className="list-group-item" key={i}>{v}</li> )}
           </ul>
-      </div>
+      </div>;
   }
 }
 

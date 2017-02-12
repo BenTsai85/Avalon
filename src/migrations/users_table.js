@@ -1,6 +1,6 @@
 module.exports = {
-  up(queryInterface, Sequelize) {
-    return queryInterface.createTable('User', {
+  up( queryInterface, Sequelize ) {
+    return queryInterface.createTable( 'User', {
       id: {
         allowNull: false,
         primaryKey: true,
@@ -39,10 +39,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-    });
+    } );
   },
 
-  down(queryInterface) {
-    return queryInterface.dropTable('User');
+  down( queryInterface ) {
+    return queryInterface.dropTable( 'User' );
   },
 };

@@ -28,8 +28,10 @@ class App extends Component {
     if ( this.state.route === '/signup' )
       return <SignUp signup={ this.signup } error={ this.state.error } loadImage={ this.loadImage } checkName={ this.checkName }/>;
 
+
     if ( this.state.route === '/users' )
       return <Profile username={ this.state.username } password={ this.state.password } email={ this.state.email } icon={ this.state.icon } friendlist={ this.state.friendlist } />;
+
 
     return <Login login={ this.login } error={ this.state.error }/>;
   }

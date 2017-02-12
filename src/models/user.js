@@ -1,5 +1,5 @@
-module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
+module.exports = ( sequelize, DataTypes ) => {
+  const User = sequelize.define( 'User', {
     id: {
       allowNull: false,
       primaryKey: true,
@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.DATE,
     },
-  }, {freezeTableName:true});
+  }, { freezeTableName: true } );
 
   return User;
 };

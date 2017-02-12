@@ -16,11 +16,13 @@ class PlayerOwn extends Component {
     for ( let i = 0; i < this.props.games_record.length; ++i ) {
       if ( this.props.games_record[ i ] )
         r.push( <div style={{ color: 'blue', float: 'left' }} key={i}>O</div> );
+
       else
         r.push( <div style={{ color: 'red', float: 'left' }} key={i}>O</div> );
     }
     for ( let i = 0; i < ( 5 - this.props.games_record.length ); ++i )
       r.push( <div key={this.props.games_record.length + i} style={{ float: 'left' }} >O</div> );
+
     return r;
   }
   render() {

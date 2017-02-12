@@ -23,21 +23,20 @@ class Login extends Component {
       name: this.state.username,
       password: this.state.password,
     };
-    fetch('/api/auth/login/', {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        method: 'POST',
-        body: JSON.stringify(user),
-        credentials: 'same-origin',
-      }).then(res=>res.json())
-      .then(res=>{
-        if (res.status) {
+    fetch( '/api/auth/login/', {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify( user ),
+      credentials: 'same-origin',
+    } ).then( res => res.json() )
+      .then( ( res ) => {
+        if ( res.status )
           document.location.href = '/gamelobby';
-        }
-      })
-    };
+      } );
+  };
 
   render() {
     return (
@@ -58,7 +57,7 @@ class Login extends Component {
               value={ this.state.password }
               onChange={ ( e ) => { this.setState( { password: e.target.value } ); } }/>
           </div>
-          <input type="submit" value="submit" id="submit" className="btn btn-default" onClick={()=>this.login()}/>
+          <input type="submit" value="submit" id="submit" className="btn btn-default" onClick={() => this.login()}/>
           <a href='?#/signup' id="signup">Sign Up</a>
         </form>
       </div>

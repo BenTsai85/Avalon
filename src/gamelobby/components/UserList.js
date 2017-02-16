@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './UserList.css';
 
-const gamelobby_chat = io( 'http://localhost:3000/gamelobby' );
+const gamelobby_chat = io( 'http://localhost:3000/' );
 
 class App extends Component {
   constructor( props ) {

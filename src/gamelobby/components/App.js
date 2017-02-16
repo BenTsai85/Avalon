@@ -6,7 +6,7 @@ import GameroomList from './GameroomList';
 import './App.css';
 
 
-const gamelobby_chat = io( 'http://localhost:3000/gamelobby' );
+const gamelobby_chat = io( 'http://localhost:3000' );
 
 class App extends Component {
   constructor( props ) {
@@ -26,15 +26,32 @@ class App extends Component {
       } );
   }
 
+  logout = () => {
+    fetch( '/auth/logout', {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json'
+      },
+      credentials: 'same-origin',
+    } )
+      .then( res => res.json() )
+      .then( res => {
+        this.props.changeLoc( 'login' );
+      } )
+      .catch( err => {
+        console.error( err );
+      } );
+  }
+
   render() {
     return <div className="container margin">
         <div className="row">
-          <button type="button" className="btn btn-default right-btn">{`${this.state.name} propfile`}</button>
-          <button type="button" className="btn btn-default right-btn">Log out</button>
+          <button type="button" className="btn btn-default right-btn">{`${this.state.name} profile`}</button>
+          <button type="button" className="btn btn-default right-btn" onClick={ this.logout }>Log out</button>
         </div>
         <div className="row">
           <div className="col-xs-9">
-            <GameroomList/>
+            <GameroomList changeLoc={ this.props.changeLoc }/>
           </div>
           <div className="col-xs-3">
             <UserList/>
@@ -42,7 +59,7 @@ class App extends Component {
         </div>
         <div className="row">
           <div className="col-xs-9">
-            <Chatroom/>
+            <Chatroom user={ this.props.user }/>
           </div>
           <div className="col-xs-3">
             <ControlPanel/>

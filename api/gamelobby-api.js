@@ -17,13 +17,8 @@ const returnRouter = function ( io ) {
     res.json( gamerooms.length );
   } );
 
-  router.get( '/', ( req, res ) => {
-    console.log( req.originalUrl );
-    res.sendFile( path.join( __dirname, 'gamelobby.html' ) );
-  } );
-
-  	const gamelobby = io.of( '/gamelobby' );
-  gamelobby.on( 'connection', ( socket ) => {
+  const gamelobby = io.of( '?' );
+  io.on( 'connection', ( socket ) => {
     socket.emit( 'set_gamerooms', gamerooms );
     socket.emit( 'set_players', players );
     socket.on( 'player_connect', ( msg ) => {

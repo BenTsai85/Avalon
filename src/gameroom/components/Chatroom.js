@@ -28,7 +28,7 @@ class Chatroom extends Component {
     chatting.scrollTop = chatting.scrollHeight;
   }
   render() {
-    return <div className="chatroom">
+    return <div className="gameroom">
         <div className="row">
             <div className="panel panel-default">
               <div className="panel-heading">Panel heading without title</div>

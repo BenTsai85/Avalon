@@ -6,10 +6,6 @@ const returnRouter = function ( io ) {
   const gameio = io.of( '/game' );
   const router = new Router();
 
-  router.use( ( req, res ) => {
-    res.sendFile( path.join( __dirname, 'game.html' ) );
-  } );
-
   // function assert( condition, message ) {
   //   if ( !condition )
   //     throw message || 'Assertion failed';

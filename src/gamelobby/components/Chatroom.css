@@ -1,27 +1,24 @@
-.message-bubble:nth-child(even) { 
+.gamelobby .message-bubble:nth-child(even) { 
 	margin:0em;
 	padding:1em; 
 	background-color: #F5F5F5; }
 
-.message-bubble 
+.gamelobby .message-bubble 
 {
     padding-left: 2em;  
 }
 
-.panel-body { 
+.gamelobby .panel-body { 
 	padding: 0px; 
 }
 
-.panel-heading { background-color: #3d6da7 !important; color: white !important; }
+.gamelobby .panel-heading { background-color: #3d6da7 !important; color: white !important; }
 
-.chatroom{
-}
-
-.float-left{
+.gamelobby .float-left{
 	float:left;
 }
 
-.chatting{
+.gamelobby .chatting{
 	height:15em;
 	overflow:scroll;
 }

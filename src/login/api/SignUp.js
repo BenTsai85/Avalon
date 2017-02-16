@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './SignUp.css';
 
 class SignUp extends Component {
-  constructor() {
-    super();
+  constructor( props ) {
+    super( props );
     this.state = {
       username: '',
       password: '',
@@ -53,7 +53,15 @@ class SignUp extends Component {
 
   submit() {
     console.log( 'submit' );
-    if ( this.state.username !== '' && this.state.password.length >= 6 && this.state.password === this.state.passwordAgain ) {
+    if ( this.state.username == '' )
+      window.alert( 'Please enter your name!' );
+    else if ( this.state.email == '' )
+      window.alert( 'Please enter your email!' );
+    else if ( this.state.password.length < 6 )
+      window.alert( 'Password must be longer than 6!' );
+    else if ( this.state.password !== this.state.passwordAgain )
+      window.alert( 'The second password is different from the first one!' );
+    else {
       console.log( 'pass check' );
       const signUpForm = new FormData();
       signUpForm.append( 'name', this.state.username );
@@ -69,7 +77,7 @@ class SignUp extends Component {
         .then( res => res.json() )
         .then( ( res ) => {
           if ( res.status )
-            location.hash = '';
+            this.props.changeLoc( 'login' );
         } );
     }
   }
@@ -80,8 +88,8 @@ class SignUp extends Component {
         <div className="jumbotron">
           <h1>Avalon <small>Sign Up</small></h1>
         </div>
-        <form>
-          <div className="col-xs-12 col-sm-6">
+        <div className="col-xs-12 col-sm-6">
+          <form>
             <div className="form-group">
               <label htmlFor="username">User Name*</label>
               <input type="text" id="username" className="form-control" placeholder="User Name"
@@ -107,21 +115,21 @@ class SignUp extends Component {
                 onChange={ ( e ) => { this.setState( { passwordAgain: e.target.value } ); } }/>
               <img id='checkPasswordAgain' width="25px" height="25px"/>
             </div>
-            <div className="col-xs-12">
-              <div className="col-xs-6">
-                <input id="submit" onClick={() => this.submit()} className="btn btn-default" type="submit" value="submit" />
-              </div>
-              <div className="col-xs-6">
-                <button id="clear" className="btn btn-default" onClick={ this.clear }>clear</button>
-              </div>
+          </form>
+          <div className="col-xs-12">
+            <div className="col-xs-6">
+              <button id="submit" onClick={() => this.submit()} className="btn btn-default">submit</button>
+            </div>
+            <div className="col-xs-6">
+              <button id="clear" className="btn btn-default" onClick={ this.clear }>clear</button>
             </div>
           </div>
-          <div className="col-xs-12 col-sm-6 IntegralPic">
-            <label className="btn btn-default" id="upload" htmlFor="icon">Select Your Profile Picture</label>
-            <input id="icon" type="file" accept="image/*" onChange={ this.loadImage }/>
-            <img id="profileImg" className='thumbnail' src={ this.state.icon ? ( window.URL || window.webkitURL ).createObjectURL( this.state.icon ) : 'https://thebenclark.files.wordpress.com/2014/03/facebook-default-no-profile-pic.jpg' } width='400px' height='400px' />
-          </div>
-        </form>
+        </div>
+        <div className="col-xs-12 col-sm-6 IntegralPic">
+          <label className="btn btn-default" id="upload" htmlFor="icon">Select Your Profile Picture</label>
+          <input id="icon" type="file" accept="image/*" onChange={ this.loadImage }/>
+          <img id="profileImg" className='thumbnail' src={ this.state.icon ? ( window.URL || window.webkitURL ).createObjectURL( this.state.icon ) : 'https://thebenclark.files.wordpress.com/2014/03/facebook-default-no-profile-pic.jpg' } width='400px' height='400px' />
+        </div>
       </div>
     );
   }

@@ -8,7 +8,7 @@ class Chatroom extends Component {
     super( props );
     this.state = {
       typing: '',
-      sentences: [ 'default0', 'default0', 'default0' ],
+      sentences: [ this.props.user.name + ' logged in.' ],
     };
   }
   componentDidMount() {
@@ -29,15 +29,15 @@ class Chatroom extends Component {
     chatting.scrollTop = chatting.scrollHeight;
   }
   render() {
-    return <div className="chatroom">
+    return <div className="gamelobby">
         <div className="row">
             <div className="panel panel-default">
-              <div className="panel-heading">Panel heading without title</div>
+              <div className="panel-heading">Chatroom</div>
               <div className="panel-body">
                 <div className="chatting" id="chatting">
                   {
                       this.state.sentences.map( ( v, i ) => <div className="row message-bubble" key={i}>
-                          <div className="text-muted ">UserName waiting to set!:</div>
+                          <div className="text-muted ">{ this.props.user.name }:</div>
                           <div className="float-left">{v}</div>
                         </div> )
                   }

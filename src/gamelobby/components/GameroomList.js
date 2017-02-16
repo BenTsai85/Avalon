@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './GameroomList.css';
 
 
-const gamelobby_chat = io( 'http://localhost:3000/gamelobby' );
+const gamelobby_chat = io( 'http://localhost:3000/' );
 class App extends Component {
   constructor( props ) {
     super( props );
@@ -21,7 +21,7 @@ class App extends Component {
             <div className="panel-body" >
                 <ul className="list-group">
                     {
-                      this.state.gamerooms.map( ( v, i ) => <li className="list-group-item" key={i}>
+                      this.state.gamerooms.map( ( v, i ) => <li className="list-group-item" key={i} onClick={ () => { this.props.changeLoc( 'gameroom' ); } }>
                         {v.roomname}
                       </li> )
                     }

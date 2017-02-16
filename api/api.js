@@ -20,7 +20,13 @@ const returnRouter = function ( io ) {
     }
   } );
 
-  router.get( '/', ( req, res ) => {
+  router.use( game( io ) );
+
+  router.use( gameroom( io ) );
+
+  router.use( gamelobby( io ) );
+
+  router.get( '*', ( req, res ) => {
     res.sendFile( path.join( __dirname, '../index.html' ) );
   } );
 

@@ -2,6 +2,7 @@ import { Router } from 'express';
 import express from 'express';
 import models from '../src/models';
 import multer from 'multer';
+import bcrypt from 'bcryptjs';
 const upload = multer();
 
 const { User } = models;
@@ -12,14 +13,14 @@ authRouter.use( bodyParser.urlencoded( { extended: false } ) );
 authRouter.use( bodyParser.json() );
 authRouter.use( express.static( 'public' ) );
 
-const bcrypt = require( 'bcryptjs' );
-
 authRouter.post( '/check', ( req, res ) => {
   if ( req.session.loggedInUserId ) {
     const userId = req.session.loggedInUserId;
+    const userName = req.session.loggedInUserName;
     return res.json( {
       status: true,
       userId,
+      userName,
     } );
   }
   res.json( {
@@ -32,6 +33,7 @@ authRouter.post( '/signup', upload.single( 'icon' ), async ( req, res ) => {
     console.log( 'signup' );
     const { password, name, email } = req.body;
     console.log( { password, name, email } );
+    const hash = bcrypt.hashSync( password, 8 );
     const check_user_name = await User.find( {
       where: {
         name,
@@ -48,7 +50,7 @@ authRouter.post( '/signup', upload.single( 'icon' ), async ( req, res ) => {
     }
     const user = await User.create( {
       name,
-      password,
+      password: hash,
       email,
       icon: req.file,
       win_num: 0,
@@ -74,8 +76,9 @@ authRouter.post( '/login', async ( req, res ) => {
       res.json( { status: false } );
       return;
     }
-    if ( password === user.password ) {
+    if ( bcrypt.compareSync( password, user.password ) ) {
       req.session.loggedInUserId = user.id;
+      req.session.loggedInUserName = user.name;
       res.json( { status: true } );
     }
     else
@@ -85,5 +88,13 @@ authRouter.post( '/login', async ( req, res ) => {
     console.log( err );
   }
 } );
+
+authRouter.post( '/logout', ( req, res ) => {
+  req.session.destroy();
+  res.json( {
+    status: true,
+  } );
+} );
+
 
 export default authRouter;

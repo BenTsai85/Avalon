@@ -35,7 +35,7 @@ class Login extends Component {
       .then( res => res.json() )
       .then( res => {
         if ( res.status )
-          location.hash = '';
+          this.props.changeLoc( 'gamelobby' );
       } );
   };
 
@@ -58,9 +58,9 @@ class Login extends Component {
               value={ this.state.password }
               onChange={ ( e ) => { this.setState( { password: e.target.value } ); } }/>
           </div>
-          <input type="submit" value="submit" id="submit" className="btn btn-default" onClick={ () => this.login() }/>
-          <a href='?#/signup' id="signup">Sign Up</a>
         </form>
+        <button id="submit" className="btn btn-default" onClick={ () => this.login() }>submit</button>
+        <a id="signup" onClick={ () => this.props.changeLoc( 'signup' ) }>Sign Up</a>
       </div>
     );
   }

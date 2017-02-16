@@ -5,16 +5,11 @@ import assert from 'assert';
 const returnRouter = function ( io ) {
   const router = new Router();
 
-  router.get( '*', ( req, res ) => {
-    res.sendFile( path.join( __dirname, 'gameroom.html' ) );
-  } );
-
-
   const gameroom_players_setting = [];
   const gameroom_socketid = [];
 	// {name, img, ready?, ifchief?}
 
-  	const gameroom = io.of( '/gameroom' );
+  const gameroom = io.of( '/gameroom' );
   gameroom.on( 'connection', ( socket ) => {
 	    console.log( 'GAMEROOM', socket.id );
 	    gameroom_socketid.push( socket.id );

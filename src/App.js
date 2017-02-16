@@ -13,18 +13,13 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      route: window.location.hash.substr( 1 ),
-      userId: null,
+      loc: 'login',
+      user: null,
     };
   }
 
   componentWillMount() {
-    window.addEventListener( 'hashchange', () => {
-      this.setState( {
-        route: window.location.hash.substr( 1 ),
-      } );
-    } );
-
+    console.log(1);
     fetch( '/auth/check', {
       method: 'POST',
       credentials: 'same-origin',
@@ -32,25 +27,38 @@ class App extends Component {
       .then( res => res.json() )
       .then( res => {
         if ( res.status )
-          this.setState( { userId: res.userId } );
+          this.setState( { loc: 'gamelobby', user: { id: res.userId, name: res.userName, }, } );
+      } );
+  }
+
+  changeLoc = ( loc ) => {
+    console.log(2);
+    fetch( '/auth/check', {
+      method: 'POST',
+      credentials: 'same-origin',
+    } )
+      .then( res => res.json() )
+      .then( res => {
+        if ( res.status )
+          this.setState( { loc: loc, user: { id: res.userId, name: res.userName, }, } );
       } );
   }
 
   renderRoute = () => {
-    if ( this.state.route === '/signup' )
-      return <SignUp />;
+    console.log(3);
+    if ( this.state.loc === 'signup' )
+      return <SignUp changeLoc={ this.changeLoc }/>;
 
-    if ( this.state.userId ) {
-      if ( this.state.route === '/game' )
-        return <GameApp player_number={3}/>;
+    if ( this.state.loc === 'game' )
+      return <GameApp player_number={3}/>;
 
-      if ( this.state.route === '/gameroom' )
-        return <GameRoomApp />;
+    if ( this.state.loc === 'gameroom' )
+      return <GameRoomApp changeLoc={ this.changeLoc }/>;
 
-      return <GameLobbyApp />;
-    }
+    if ( this.state.loc === 'gamelobby' )
+      return <GameLobbyApp changeLoc={ this.changeLoc } user={ this.state.user }/>;
 
-    return <Login />;
+    return <Login changeLoc={ this.changeLoc }/>;
   }
 
   render() {

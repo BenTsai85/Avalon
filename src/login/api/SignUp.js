@@ -6,7 +6,7 @@ class SignUp extends Component {
     super( props );
     this.state = {
       username: '',
-      password: '',
+      password: 'aaaaaa',
       email: '',
       icon: null,
       passwordAgain: '',
@@ -57,10 +57,6 @@ class SignUp extends Component {
       window.alert( 'Please enter your name!' );
     else if ( this.state.email == '' )
       window.alert( 'Please enter your email!' );
-    else if ( this.state.password.length < 6 )
-      window.alert( 'Password must be longer than 6!' );
-    else if ( this.state.password !== this.state.passwordAgain )
-      window.alert( 'The second password is different from the first one!' );
     else {
       console.log( 'pass check' );
       const signUpForm = new FormData();
@@ -81,6 +77,8 @@ class SignUp extends Component {
         } );
     }
   }
+
+  setRFID = ( e ) => this.setState( { password: e.target.value } );
 
   render() {
     return (
@@ -103,17 +101,11 @@ class SignUp extends Component {
                 onChange={ ( e ) => { this.setState( { email: e.target.value } ); } }/>
             </div>
             <div className="form-group">
-              <label htmlFor="password">Password* ( longer than 5 )</label>
+              <label htmlFor="password">Use RFID</label>
               <input type="password" id="password" className="form-control" placeholder="Password"
                 value={ this.state.password }
                 onChange={ ( e ) => { this.setState( { password: e.target.value } ); } }/>
               <img id='checkPassword' width="25px" height="25px"/>
-            </div>
-            <div className="form-group">
-              <input type="password" id="passwordAgain" className="form-control" placeholder="Please enter Password again"
-                value={ this.state.passwordAgain }
-                onChange={ ( e ) => { this.setState( { passwordAgain: e.target.value } ); } }/>
-              <img id='checkPasswordAgain' width="25px" height="25px"/>
             </div>
           </form>
           <div className="col-xs-12">
@@ -124,11 +116,6 @@ class SignUp extends Component {
               <button id="clear" className="btn btn-default" onClick={ this.clear }>clear</button>
             </div>
           </div>
-        </div>
-        <div className="col-xs-12 col-sm-6 IntegralPic">
-          <label className="btn btn-default" id="upload" htmlFor="icon">Select Your Profile Picture</label>
-          <input id="icon" type="file" accept="image/*" onChange={ this.loadImage }/>
-          <img id="profileImg" className='thumbnail' src={ this.state.icon ? ( window.URL || window.webkitURL ).createObjectURL( this.state.icon ) : 'https://thebenclark.files.wordpress.com/2014/03/facebook-default-no-profile-pic.jpg' } width='400px' height='400px' />
         </div>
       </div>
     );

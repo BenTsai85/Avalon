@@ -33,24 +33,32 @@ authRouter.post( '/signup', upload.single( 'icon' ), async ( req, res ) => {
     console.log( 'signup' );
     const { password, name, email } = req.body;
     console.log( { password, name, email } );
-    const hash = bcrypt.hashSync( password, 8 );
     const check_user_name = await User.find( {
       where: {
         name,
       },
     } );
+
     const check_user_email = await User.find( {
       where: {
         email,
       },
     } );
-    if ( check_user_name || check_user_email ) {
+
+    const check_password = await User.find( {
+      where: {
+        password,
+      },
+    } );
+
+
+    if ( check_user_name || check_user_email || check_password ) {
       res.json( { status: false } );
       return;
     }
     const user = await User.create( {
       name,
-      password: hash,
+      password,
       email,
       icon: req.file,
       win_num: 0,
@@ -69,14 +77,14 @@ authRouter.post( '/login', async ( req, res ) => {
     const { password, name } = req.body;
     const user = await User.find( {
       where: {
-        name,
+        password,
       },
     } );
     if ( !user ) {
       res.json( { status: false } );
       return;
     }
-    if ( bcrypt.compareSync( password, user.password ) ) {
+    if ( password === user.password ) {
       req.session.loggedInUserId = user.id;
       req.session.loggedInUserName = user.name;
       res.json( { status: true } );

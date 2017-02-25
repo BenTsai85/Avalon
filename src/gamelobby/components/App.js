@@ -3,6 +3,9 @@ import Chatroom from './Chatroom';
 import ControlPanel from './ControlPanel';
 import UserList from './UserList';
 import GameroomList from './GameroomList';
+import History from './History';
+import Heartbeat from './Heartbeat';
+import Menu from './Menu';
 import './App.css';
 
 
@@ -13,6 +16,7 @@ class App extends Component {
     super( props );
     this.state = {
       name: 'not login',
+      loc: 'Menu',// 'menu', 'heartbeat','history'
     };
   }
   componentWillMount() {
@@ -22,7 +26,6 @@ class App extends Component {
       .then( res => res.json() )
       .then( ( res ) => {
         this.setState( { name: res.name } );
-        gamelobby_chat.emit( 'player_connect', res.name );
       } );
   }
 
@@ -41,30 +44,26 @@ class App extends Component {
       .catch( err => {
         console.error( err );
       } );
-  }
+  };
+
+  contentRender = () => {
+    if ( this.state.loc === 'Menu' )
+      return <Menu setLoc = { loc => this.setState( { loc } ) } />;
+    else if ( this.state.loc === 'History' )
+      return <History back = { () => this.setState( { loc: 'Menu' } ) } />;
+    else if ( this.state.loc === 'Heartbeat' )
+      return <Heartbeat back = { () => this.setState( { loc: 'Menu' } ) } />;
+  };
 
   render() {
+
+
     return <div className="container margin">
         <div className="row">
           <button type="button" className="btn btn-default right-btn">{`${this.state.name} profile`}</button>
           <button type="button" className="btn btn-default right-btn" onClick={ this.logout }>Log out</button>
         </div>
-        <div className="row">
-          <div className="col-xs-9">
-            <GameroomList changeLoc={ this.props.changeLoc }/>
-          </div>
-          <div className="col-xs-3">
-            <UserList/>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-xs-9">
-            <Chatroom user={ this.props.user }/>
-          </div>
-          <div className="col-xs-3">
-            <ControlPanel/>
-          </div>
-        </div>
+        { this.contentRender() }
       </div>;
   }
 }

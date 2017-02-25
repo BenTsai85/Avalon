@@ -57,7 +57,7 @@ class App extends Component {
 		    			{this.state.members.map( ( v, i ) => <Member classname_prop={v.is_ready ? 'is_ready' : ''} key={i} img={v.img} name={v.name}/> )}
 		    		</div>
 		    		<div className="row">
-		    			<Chatroom myname={this.state.myname}/>
+		    			<Chatroom name={this.state.myname}/>
 		    		</div>
 	    		</div>
 	    		<div className="col-xs-3">

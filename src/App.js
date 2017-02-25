@@ -14,12 +14,12 @@ class App extends Component {
     super();
     this.state = {
       loc: 'login',
-      user: null,
+      user: { id: null, name: null, },
     };
   }
 
   componentWillMount() {
-    console.log(1);
+    // console.log(1);
     fetch( '/auth/check', {
       method: 'POST',
       credentials: 'same-origin',
@@ -32,20 +32,22 @@ class App extends Component {
   }
 
   changeLoc = ( loc ) => {
-    console.log(2);
+    // console.log(2);
     fetch( '/auth/check', {
       method: 'POST',
       credentials: 'same-origin',
     } )
       .then( res => res.json() )
       .then( res => {
-        if ( res.status )
-          this.setState( { loc: loc, user: { id: res.userId, name: res.userName, }, } );
+        if ( res.status ) {
+          this.setState( { user: { id: res.userId, name: res.userName, }, } );
+        }
       } );
+    this.setState( { loc: loc } );
   }
 
   renderRoute = () => {
-    console.log(3);
+    // console.log(3);
     if ( this.state.loc === 'signup' )
       return <SignUp changeLoc={ this.changeLoc }/>;
 

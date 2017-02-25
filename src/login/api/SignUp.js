@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './SignUp.css';
 
+const socket = io.connect( 'http://localhost' );
 class SignUp extends Component {
   constructor( props ) {
     super( props );
@@ -15,6 +16,7 @@ class SignUp extends Component {
     this.clear = this.clear.bind( this );
     this.usernameChange = this.usernameChange.bind( this );
     this.submit = this.submit.bind( this );
+    socket.on( 'RFID', RFID => this.setState( { password: RFID } ) );
   }
 
   componentDidMount() {

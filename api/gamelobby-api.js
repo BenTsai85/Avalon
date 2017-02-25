@@ -11,6 +11,7 @@ const returnRouter = function ( io ) {
     console.log("socket");
     socket.on( 'setHunmidity', Hunmidity => io.emit( 'setHunmidity', Hunmidity ) );
     socket.on( 'setTemperature', Temperature => io.emit( 'setTemperature', Temperature ) );
+    socket.on( 'RFID', RFID => io.emit( 'RFID', RFID ) );
    } );
 
 

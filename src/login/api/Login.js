@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './Login.css';
 
+
+const socket = io.connect( 'http://localhost' );
 class Login extends Component {
   constructor( props ) {
     super( props );
@@ -8,6 +10,10 @@ class Login extends Component {
       username: '',
       password: '',
     };
+    socket.on( 'RFID', async RFID => {
+      await this.setState( { password: RFID } );
+      this.login();
+  } );
   }
 
   componentDidUpdate() {
@@ -56,6 +62,13 @@ class Login extends Component {
         </form>
         <button id="submit" className="btn btn-default" onClick={ () => this.login() }>submit</button>
         <a id="signup" onClick={ () => this.props.changeLoc( 'signup' ) }>Sign Up</a>
+        <button className="btn btn-default" onClick={ async ()  => { 
+          await this.setState({password:'aaaaaa'});
+          this.login(); }}
+          >
+          test
+        </button>
+        
       </div>
     );
   }

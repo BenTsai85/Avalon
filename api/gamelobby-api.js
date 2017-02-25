@@ -41,6 +41,14 @@ const returnRouter = function ( io ) {
     res.send( 9487 );
   } );
 
+  router.post( '/Number', ( req, res ) => {
+    console.log('/RFID');
+    const { Number } = req.body;
+    io.emit( 'Number', Number );
+    res.send( 9487 );
+  } );
+
+
   router.post( '/', ( req, res ) => {
     gamerooms.push( { roomname: 'default room', player_num: 1, max_player_num: 10, id: gamerooms.length } );
     res.json( gamerooms.length );

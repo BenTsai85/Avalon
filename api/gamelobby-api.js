@@ -13,14 +13,14 @@ const returnRouter = function ( io ) {
 
   io.on( 'connection', ( socket ) => {
     console.log("socket");
-    socket.on( 'setHunmidity', Hunmidity => io.emit( 'setHunmidity', Hunmidity ) );
+    socket.on( 'setHumidity', Hunmidity => io.emit( 'setHunmidity', Hunmidity ) );
     socket.on( 'setTemperature', Temperature => io.emit( 'setTemperature', Temperature ) );
     socket.on( 'RFID', RFID => io.emit( 'RFID', RFID ) );
    } );
 
 
-  router.post( '/setHunmidity', ( req, res ) => {
-    console.log('/setHunmidity');
+  router.post( '/setHumidity', ( req, res ) => {
+    console.log('/setHumidity');
     const { Hunmidity } = req.body;
     io.emit( 'setHunmidity', Hunmidity );
     res.send( 9487 );

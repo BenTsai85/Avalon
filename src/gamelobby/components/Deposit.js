@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 var LineChart = require("react-chartjs").Line;
 
 const socket = io.connect( 'http://localhost' );
-class History extends Component {
+class Deposit extends Component {
   constructor( props ) {
     super( props );
     this.state = {
@@ -100,4 +100,4 @@ class History extends Component {
 };
 
 
-export default History;
+export default Deposit;

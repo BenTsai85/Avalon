@@ -4,7 +4,9 @@ import ControlPanel from './ControlPanel';
 import UserList from './UserList';
 import GameroomList from './GameroomList';
 import History from './History';
-import Heartbeat from './Heartbeat';
+import Weather from './Weather';
+import Air from './Air';
+import Deposit from './Deposit';
 import Menu from './Menu';
 import './App.css';
 
@@ -16,7 +18,7 @@ class App extends Component {
     super( props );
     this.state = {
       name: 'not login',
-      loc: 'Menu',// 'menu', 'heartbeat','history'
+      loc: 'Menu',// 'Menu', 'Weather','History', 'Air', 'Deposit'
     };
   }
   componentWillMount() {
@@ -49,10 +51,14 @@ class App extends Component {
   contentRender = () => {
     if ( this.state.loc === 'Menu' )
       return <Menu setLoc = { loc => this.setState( { loc } ) } />;
+    else if ( this.state.loc === 'Weather' )
+      return <Weather back = { () => this.setState( { loc: 'Menu' } ) } />;
+    else if ( this.state.loc === 'Air' )
+      return <Air back = { () => this.setState( { loc: 'Menu' } ) } />;
+    else if ( this.state.loc === 'Deposit' )
+      return <Deposit back = { () => this.setState( { loc: 'Menu' } ) } />;
     else if ( this.state.loc === 'History' )
       return <History back = { () => this.setState( { loc: 'Menu' } ) } />;
-    else if ( this.state.loc === 'Heartbeat' )
-      return <Heartbeat back = { () => this.setState( { loc: 'Menu' } ) } />;
   };
 
   render() {

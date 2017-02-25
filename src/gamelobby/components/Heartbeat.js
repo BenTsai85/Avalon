@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Heartbeat extends Component {
+class Whether extends Component {
   constructor( props ) {
     super( props );
     this.state = {
@@ -23,4 +23,4 @@ class Heartbeat extends Component {
   }
 }
 
-export default Heartbeat;
+export default Whether;

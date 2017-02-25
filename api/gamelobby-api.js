@@ -10,7 +10,7 @@ const returnRouter = function ( io ) {
   const router = new Router();
   router.use( bodyParser.urlencoded( { extended: false } ) );
   router.use( bodyParser.json() );
-  
+
   io.on( 'connection', ( socket ) => {
     console.log("socket");
     socket.on( 'setHunmidity', Hunmidity => io.emit( 'setHunmidity', Hunmidity ) );
@@ -20,19 +20,25 @@ const returnRouter = function ( io ) {
 
 
   router.post( '/setHunmidity', ( req, res ) => {
+    console.log('/setHunmidity');
     const { Hunmidity } = req.body;
     io.emit( 'setHunmidity', Hunmidity );
+    res.send( 9487 );
   } );
 
 
   router.post( '/setTemperature', ( req, res ) => {
+    console.log('/setTemperature');
     const { Temperature } = req.body;
     io.emit( 'setTemperature', Temperature );
+    res.send( 9487 );
   } );
 
   router.post( '/RFID', ( req, res ) => {
+    console.log('/RFID');
     const { RFID } = req.body;
     io.emit( 'RFID', RFID );
+    res.send( 9487 );
   } );
 
   router.post( '/', ( req, res ) => {

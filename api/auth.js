@@ -13,6 +13,20 @@ authRouter.use( bodyParser.urlencoded( { extended: false } ) );
 authRouter.use( bodyParser.json() );
 authRouter.use( express.static( 'public' ) );
 
+authRouter.get( '/profile', async ( req, res ) => {
+  if ( req.session.loggedInUserId ) {
+    const user = await User.find( {
+      where: {
+        id: req.session.loggedInUserId,
+      },
+    } );
+    if ( user ) {
+      const { username, email, rest } = user;
+      return res.json( { username, email, rest } );
+    }
+  }
+} );
+
 authRouter.post( '/check', ( req, res ) => {
   if ( req.session.loggedInUserId ) {
     const userId = req.session.loggedInUserId;

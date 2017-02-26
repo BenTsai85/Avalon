@@ -20,7 +20,7 @@ class Deposit extends Component {
           this.deposit();
         const depositValue = String(this.state.depositValue) + String( Number );
         this.setState( { depositValue } );
-
+        this.props.back();
     } );
 
     fetch( '/surplus' ).then( res => res.json() )

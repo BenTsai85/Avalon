@@ -16,7 +16,8 @@ class Deposit extends Component {
         if ( Number === '#' ) {
             this.setState( { depositValue: 0 } );
             return;
-        };
+        } else if ( Number === '*' )
+          this.deposit();
         const depositValue = String(this.state.depositValue) + String( Number );
         this.setState( { depositValue } );
 

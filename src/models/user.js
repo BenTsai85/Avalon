@@ -18,7 +18,7 @@ module.exports = ( sequelize, DataTypes ) => {
       allowNull: false,
       type: DataTypes.STRING,
     },
-    rest: {
+    surplus: {
       allowNull: false,
       type: DataTypes.INTEGER,
     },

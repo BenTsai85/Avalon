@@ -34,6 +34,19 @@ const returnRouter = function ( io ) {
     res.json( { test:9487 } );
   } );
 
+  router.get( '/fetchTemperature', ( req, res ) => );
+  router.get( '/fetchHumidity');
+  router.get( '/fetchSO2');
+  router.get( '/fetchPM2.5');
+  router.post( '/saveTemperaturePerHour');
+  router.post( '/saveHumidityPerHour');
+  router.post( '/saveSO2PerHour');
+  router.post( '/savePM2.5PerHour');
+
+
+
+
+
   router.post( '/RFID', ( req, res ) => {
     console.log('/RFID');
     const { RFID } = req.body;

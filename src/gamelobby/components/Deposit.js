@@ -12,36 +12,42 @@ class Deposit extends Component {
     };
 
     socket.on( 'Number', Number => {
-        const depositValue = this.state.depositValue + String( Number );
+        if ( Number === '#' ) {
+            this.setState( { depositValue: 0 } );
+            return;
+        };
+        const depositValue = String(this.state.depositValue) + String( Number );
         this.setState( { depositValue } );
+
     } );
 
     fetch( '/surplus' ).then( res => res.json() )
-    .then( res => console.log( res ) );
-    // .then( res => this.setState( { surplus: res } ) );
+    .then( res => this.setState( { surplus: res.surplus } ) );
   }
 
-  deposit = deposit => {
+  deposit = () => {
+    console.log( 'deposit' );
     fetch( '/deposit', {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       method: 'POST',
-      body: JSON.stringify( { deposit } ),
+      body: JSON.stringify( { deposit: this.state.depositValue } ),
       credentials: 'same-origin',
     } );
   };
 
   render() {
-    this.deposit( 9876 );
     return (
       <div>
         <form>
               <div className="form-group">
                 <div className = { 'depositLabel' } > Your Surplus: { this.state.surplus } </div>
-                <span className = { 'depositLabel' } > How much do you want to deposit? </span>
-                <input className="form-control"  placeholder="Enter email" value = { this.state.depositValue }/>
+                <span className = { 'depositLabel' } > How much do you want to deposit? ( '#' to zero ) </span>
+                <input className="form-control" style = {{ margin: '1em' }} placeholder="Enter email" value = { this.state.depositValue }/>
+                <button className = 'btn btn-primary' style = {{ margin: '1em' }} onClick = { () => this.deposit() }>Submit</button>
+                <button className = 'btn btn-secondary' style = {{ margin: '1em' }} onClick = { () => this.props.back() }>Back</button>
               </div>
         </form>
       </div>

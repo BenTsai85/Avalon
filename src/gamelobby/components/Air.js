@@ -71,18 +71,18 @@ class Air extends Component {
 
     return (
       <div>
-        <h3> { this.state.chartname[ 0 ] }</h3>
+        <h3> Air Quality </h3>
         <span>
             <LineChart data={chartData} type = {'bar'} options = { options } width="600" height="250"/>
         </span>
         <div style = {{ margin: "3em"}}>
             <div style = {{ margin: "1em"}}>
                 <span style = { { color: 'rgba(220,220,220,1)', background: 'rgba(220,220,220,1)' } }>11</span>
-                <span> Humidity </span>
+                <span> PM2.5 </span>
             </div>
             <div style = {{ margin: "1em"}}>
                 <span style = { { color: 'rgba(151,187,205,1)', background: 'rgba(151,187,205,1)' } }>11</span>
-                <span> Temperature </span>
+                <span> SO2 </span>
             </div>
         </div>
         <div>

@@ -11,6 +11,7 @@ class Weather extends Component {
       temperature: [-2, -5, 0, -3, -1, 0, -1],
       nowHumidity: 0,
       nowTemperature: 0,
+
     };
 
     setInterval( () => {
@@ -21,7 +22,7 @@ class Weather extends Component {
         this.state.temperature.splice( 0, 1 );
         this.state.temperature.push( this.state.nowTemperature );
         this.setState( { temperature: this.state.temperature } );
-    } ,3600000 );
+    } ,1000 );
 
     socket.on( 'setHunmidity', nowHumidity => this.setState( { nowHumidity } ) ) ;
     socket.on( 'setTemperature', nowTemperature => this.setState( { nowTemperature } ) );
@@ -71,7 +72,7 @@ class Weather extends Component {
 
     return (
       <div>
-        <h3> { this.state.chartname[ 0 ] }</h3>
+        <h3> Realtime monitor </h3>
         <span>
             <LineChart data={chartData} type = {'bar'} options = { options } width="600" height="250"/>
         </span>

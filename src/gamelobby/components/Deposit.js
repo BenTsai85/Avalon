@@ -12,6 +12,7 @@ class Deposit extends Component {
     };
 
     socket.on( 'Number', Number => {
+        console.log('Number:', Number);
         if ( Number === '#' ) {
             this.setState( { depositValue: 0 } );
             return;

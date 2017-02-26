@@ -23,6 +23,13 @@ class History extends Component {
         this.state.temperature.splice( 0, 1 );
         this.state.temperature.push( this.state.nowTemperature );
         this.setState( { temperature: this.state.temperature } );
+        const Temperature = this.state.nowTemperature; 
+        const Humidity = this.state.nowHumidity;
+        fetch( '/saveWeatherPerHour', {
+            method: 'POST',
+            body: { Temperature, Humidity },
+            credentials: 'same-origin',
+        } );
     } ,3600000 );
 
     socket.on( 'setHunmidity', nowHumidity => this.setState( { nowHumidity } ) ) ;

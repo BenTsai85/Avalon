@@ -15,7 +15,7 @@ class Weather extends Component {
       predictHumidity: 'none',
     };
 
-    setInterval( () => {
+    this.clearIntervalIdx =  setInterval( () => {
         console.log('setinerval');
         this.state.humidity.splice( 0, 1 );
         this.state.humidity.push( this.state.nowHumidity );
@@ -24,8 +24,8 @@ class Weather extends Component {
         this.state.temperature.push( this.state.nowTemperature );
         this.setState( { temperature: this.state.temperature } );
         
-    } ,1000 );
-
+    } ,3000 );
+    console.log("this.clearIntervalIdx",this.clearIntervalIdx);
     socket.on( 'setHunmidity', nowHumidity => this.setState( { nowHumidity } ) ) ;
     socket.on( 'setTemperature', nowTemperature => this.setState( { nowTemperature } ) );
 
@@ -97,7 +97,11 @@ class Weather extends Component {
         </div>
         <div>
           <button type="button" className="btn btn-default"
-            onClick = { () => this.props.back( 'menu' ) } > Back
+            onClick = { () => {
+                this.props.back( 'menu' );
+    console.log("this.clearIntervalIdx",this.clearIntervalIdx);
+                clearInterval( this.clearIntervalIdx ); 
+            } } > Back
           </button>
         </div>
       </div>

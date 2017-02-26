@@ -7,20 +7,20 @@ class Air extends Component {
     super( props );
     this.state = {
       chartname: [ 'History', 'chart2' ],
-      humidity: [5, 8, 2, 0, 1, 2, 0],
-      temperature: [-2, -5, 0, -3, -1, 0, -1],
+      PM2_5: [5, 8, 9, 0, 9, 14, 20],
+      SO2: [-2, -5, 0, -3, -1, 0, -1],
       nowHumidity: 0,
       nowTemperature: 0,
     };
 
     setInterval( () => {
         console.log('setinerval');
-        this.state.humidity.splice( 0, 1 );
-        this.state.humidity.push( this.state.nowHumidity );
-        this.setState( { humidity: this.state.humidity } );
-        this.state.temperature.splice( 0, 1 );
-        this.state.temperature.push( this.state.nowTemperature );
-        this.setState( { temperature: this.state.temperature } );
+        this.state.PM2_5.splice( 0, 1 );
+        this.state.PM2_5.push( this.state.nowHumidity );
+        this.setState( { PM2_5: this.state.PM2_5 } );
+        this.state.SO2.splice( 0, 1 );
+        this.state.SO2.push( this.state.nowTemperature );
+        this.setState( { SO2: this.state.SO2 } );
     } ,3600000 );
 
     socket.on( 'setHunmidity', nowHumidity => this.setState( { nowHumidity } ) ) ;
@@ -40,7 +40,7 @@ class Air extends Component {
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: this.state.humidity
+                    data: this.state.PM2_5
                 },
                 {
                     label: "My Second dataset",
@@ -50,7 +50,7 @@ class Air extends Component {
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(151,187,205,1)",
-                    data: this.state.temperature
+                    data: this.state.SO2
                 }
             ]
     };
@@ -78,7 +78,7 @@ class Air extends Component {
         <div style = {{ margin: "3em"}}>
             <div style = {{ margin: "1em"}}>
                 <span style = { { color: 'rgba(220,220,220,1)', background: 'rgba(220,220,220,1)' } }>11</span>
-                <span> PM2.5 </span>
+                <span> PM2_5 </span>
             </div>
             <div style = {{ margin: "1em"}}>
                 <span style = { { color: 'rgba(151,187,205,1)', background: 'rgba(151,187,205,1)' } }>11</span>

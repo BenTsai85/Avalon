@@ -90,9 +90,6 @@ class Air extends Component {
 
             onClick = { () => this.props.back( 'menu' ) } > Back
           </button>
-            <button type="button" className="btn btn-default"
-                onClick = { () => socket.emit( 'setTemperature', 30 ) } > sub
-          </button>
         </div>
       </div>
     );

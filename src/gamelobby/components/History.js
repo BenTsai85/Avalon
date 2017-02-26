@@ -11,6 +11,8 @@ class History extends Component {
       temperature: [-2, -5, 0, -3, -1, 0, -1],
       nowHumidity: 0,
       nowTemperature: 0,
+      predictTemperatur: 'none',
+      predictHumidity: 'none',
     };
 
     setInterval( () => {
@@ -25,6 +27,8 @@ class History extends Component {
 
     socket.on( 'setHunmidity', nowHumidity => this.setState( { nowHumidity } ) ) ;
     socket.on( 'setTemperature', nowTemperature => this.setState( { nowTemperature } ) );
+    fetch( '/predict' ).then( res => res.json() )
+    .then( res => this.setState( { predictTemperatur: res.predictTemperatur, predictHumidity: res.predictHumidity } ) );
 
   }
 
@@ -84,14 +88,13 @@ class History extends Component {
                 <span style = { { color: 'rgba(151,187,205,1)', background: 'rgba(151,187,205,1)' } }>11</span>
                 <span> Temperature </span>
             </div>
+            <div>{`   predictHumidity: ${this.state.predictHumidity}`}</div>
+            <div>{`   predictTemperatur: ${this.state.predictTemperatur}`}</div>
         </div>
         <div>
           <button type="button" className="btn btn-default"
 
             onClick = { () => this.props.back( 'menu' ) } > Back
-          </button>
-            <button type="button" className="btn btn-default"
-                onClick = { () => socket.emit( 'setTemperature', 30 ) } > sub
           </button>
         </div>
       </div>

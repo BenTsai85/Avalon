@@ -9,6 +9,7 @@ import Air from './Air';
 import Deposit from './Deposit';
 import Menu from './Menu';
 import './App.css';
+import Profile from './Profile';
 
 
 const gamelobby_chat = io( 'http://localhost:3000' );
@@ -59,6 +60,8 @@ class App extends Component {
       return <Deposit back = { () => this.setState( { loc: 'Menu' } ) } />;
     else if ( this.state.loc === 'History' )
       return <History back = { () => this.setState( { loc: 'Menu' } ) } />;
+    else if ( this.state.loc === 'Profile' )
+      return <Profile back = { () => this.setState( { loc: 'Menu' } ) }/>
   };
 
   render() {
@@ -66,7 +69,7 @@ class App extends Component {
 
     return <div className="container margin">
         <div className="row">
-          <button type="button" className="btn btn-default right-btn">{`${this.state.name} profile`}</button>
+          <button type="button" className="btn btn-default right-btn" onClick={ () => { this.setState( { loc: 'Profile' } ); } }>{`${this.state.name} profile`}</button>
           <button type="button" className="btn btn-default right-btn" onClick={ this.logout }>Log out</button>
         </div>
         { this.contentRender() }

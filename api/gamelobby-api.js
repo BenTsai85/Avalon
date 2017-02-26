@@ -3,7 +3,7 @@ import path from 'path';
 import assert from 'assert';
 import models from '../src/models';
 import bodyParser from 'body-parser';
-
+var spawn = require( 'child_process' ).spawn;
 
 const { User } = models;
 const returnRouter = function ( io ) {
@@ -36,7 +36,7 @@ const returnRouter = function ( io ) {
     res.json( { test:9487 } );
   } );
 
-  router.get( '/predict', async ( req, res ) => {
+  router.get( '/record', async ( req, res ) => {
     const weathers = await Weather.findAll( {
       limit: 8,
       order: [
@@ -45,7 +45,7 @@ const returnRouter = function ( io ) {
     } );
     const temp = weathers.map( w => w.temperature );
     const humi = weathers.map( w => w.humidity );
-    res.json( { predictTemperatur: temp, predictHumidity: humi } );
+    res.json( { recordTemperature: temp, recordHumidity: humi } );
   } );
 
   router.post( '/saveWeatherPerHour', async ( req, res ) => {
@@ -57,6 +57,22 @@ const returnRouter = function ( io ) {
     console.log('weather',Weather);
   } );
 
+  router.get( 'predict', async ( req, res ) => {
+    const weathers = await Weather.findAll( {
+      limit: 20,
+      order: [
+        [ 'updatedAt', 'DESC' ]
+      ],
+    } );
+    const temp = weathers.map( w => w.temperature );
+    const humi = weathers.map( w => w.humidity );
+    var ls = spawn( 'python3', [ 'newtest.py', ...temp, ...humi ] );
+
+    ls.stdout.on( 'data', ( data ) => {
+      let th = data.split(',');
+      return res.json( { predictTemperature: th[0], predictHumidity: th[1] } );
+    } );
+  } );
 
 
 

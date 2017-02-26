@@ -22,6 +22,10 @@ class Profile extends Component {
   render() {
     return (
       <section className="profile">
+        <div className="row">
+          <button type="button" className="btn btn-default right-btn" onClick={ () => { this.setState( { loc: 'Profile' } ); } }>{`${this.state.name} profile`}</button>
+          <button type="button" className="btn btn-default right-btn" onClick={ this.logout }>Log out</button>
+        </div>
         <div className="jumbotron">
           <h1>???</h1>
         </div>

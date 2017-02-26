@@ -23,6 +23,7 @@ const returnRouter = function ( io ) {
     console.log('/setHumidity');
     const { Hunmidity } = req.body;
     io.emit( 'setHunmidity', Hunmidity );
+    console.log(100);
     res.json( { test:9487 } );
   } );
 
@@ -31,17 +32,31 @@ const returnRouter = function ( io ) {
     console.log('/setTemperature');
     const { Temperature } = req.body;
     io.emit( 'setTemperature', Temperature );
+    console.log(200);
     res.json( { test:9487 } );
   } );
 
-  router.get( '/fetchTemperature', ( req, res ) => );
-  router.get( '/fetchHumidity');
-  router.get( '/fetchSO2');
-  router.get( '/fetchPM2.5');
-  router.post( '/saveTemperaturePerHour');
-  router.post( '/saveHumidityPerHour');
-  router.post( '/saveSO2PerHour');
-  router.post( '/savePM2.5PerHour');
+  router.get( '/predict', ( req, res ) => {
+    res.json( { predictTemperatur: [0,1,2,3,4,5,6,7], predictHumidity: [0,1,2,3,4,5,6,7] } );
+  } );
+
+  router.post( '/saveTemperaturePerHour', ( req, res ) => {
+    const { Temperature } = req.body;
+    console.log('Temperature',Temperature);
+  } );
+
+  router.post( '/saveHumidityPerHour', ( req, res ) => {
+    const { Humidity } = req.body;
+    console.log( 'Hunmidity', Hunmidity );
+  } );
+
+  router.post( '/saveSO2PerHour', ( req, res ) => {
+    const { Temperature } = req.body;
+  } );
+
+  router.post( '/savePM2.5PerHour', ( req, res ) => {
+    const { Temperature } = req.body;
+  } );
 
 
 

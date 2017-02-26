@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Login.css';
 
 
-const socket = io.connect( '13.82.96.33:3000' );
+const socket = io.connect();
 class Login extends Component {
   constructor( props ) {
     super( props );

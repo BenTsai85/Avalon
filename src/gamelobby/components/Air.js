@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 var LineChart = require("react-chartjs").Line;
 
-const socket = io.connect( 'http://localhost' );
+const socket = io.connect( '13.82.96.33:3000' );
 class Air extends Component {
   constructor( props ) {
     super( props );

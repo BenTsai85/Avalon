@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Deposit.css';
 var LineChart = require("react-chartjs").Line;
 
-const socket = io.connect( 'http://localhost' );
+const socket = io.connect( '13.82.96.33:3000' );
 class Deposit extends Component {
   constructor( props ) {
     super( props );

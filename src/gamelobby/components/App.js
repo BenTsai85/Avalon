@@ -12,7 +12,7 @@ import './App.css';
 import Profile from './Profile';
 
 
-const gamelobby_chat = io( 'http://localhost:3000' );
+const gamelobby_chat = io( '13.82.96.33:3000' );
 
 class App extends Component {
   constructor( props ) {

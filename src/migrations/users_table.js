@@ -19,19 +19,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      icon: {
-        allowNull: true,
-        type: Sequelize.BLOB,
-      },
-      win_num: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-      },
-      lose_num: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-      },
-      tie_num: {
+      surplus: {
         allowNull: false,
         type: Sequelize.INTEGER,
       },

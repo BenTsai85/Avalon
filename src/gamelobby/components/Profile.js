@@ -6,21 +6,16 @@ class Profile extends Component {
     state = {
       username: "",
       email: "",
-      rest: "",
+      surplus: "",
     };
   }
 
   componentWillMount() {
-    fetch( 'http://13.82.96.33:3000/auth/profile', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    } )
+    fetch( 'http://13.82.96.33:3000/auth/profile' )
       .then( res => res.json() )
       .then( res => {
-        const { username, email, rest } = res;
-        this.setState( { username, email, rest } );
+        const { username, email, surplus } = res;
+        this.setState( { username, email, surplus } );
       } );
   }
 
@@ -46,7 +41,7 @@ class Profile extends Component {
           <div class="form-group">
             <label class="col-sm-2 control-label">Account Balance</label>
             <div class="col-sm-10">
-              <p class="form-control-static">{ this.state.rest }</p>
+              <p class="form-control-static">{ this.state.surplus }</p>
             </div>
           </div>
         </form>

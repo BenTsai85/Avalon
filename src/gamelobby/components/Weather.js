@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 var LineChart = require("react-chartjs").Line;
 
 const socket = io.connect( 'http://localhost' );
-class weather extends Component {
+class Weather extends Component {
   constructor( props ) {
     super( props );
     this.state = {
@@ -100,4 +100,4 @@ class weather extends Component {
 };
 
 
-export default weather;
+export default Weather;

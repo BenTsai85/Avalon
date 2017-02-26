@@ -18,7 +18,7 @@ class App extends Component {
     super( props );
     this.state = {
       name: 'not login',
-      loc: 'Menu',// 'Menu', 'Weather','History', 'Air', 'Deposit'
+      loc: 'Deposit',// 'Menu', 'Weather','History', 'Air', 'Deposit'
     };
   }
   componentWillMount() {

@@ -23,7 +23,7 @@ const returnRouter = function ( io ) {
     console.log('/setHumidity');
     const { Hunmidity } = req.body;
     io.emit( 'setHunmidity', Hunmidity );
-    res.send( 9487 );
+    res.json( { test:9487 } );
   } );
 
 
@@ -31,22 +31,33 @@ const returnRouter = function ( io ) {
     console.log('/setTemperature');
     const { Temperature } = req.body;
     io.emit( 'setTemperature', Temperature );
-    res.send( 9487 );
+    res.json( { test:9487 } );
   } );
 
   router.post( '/RFID', ( req, res ) => {
     console.log('/RFID');
     const { RFID } = req.body;
     io.emit( 'RFID', RFID );
-    res.send( 9487 );
+    res.json( { test:9487 } );
   } );
 
   router.post( '/Number', ( req, res ) => {
     console.log('/RFID');
     const { Number } = req.body;
     io.emit( 'Number', Number );
-    res.send( 9487 );
+    res.json( { test:9487 } );
   } );
+
+  router.get( '/surplus', ( req, res ) => {
+    res.json( { surplus: 9999 } );
+  } );
+
+  router.post( '/deposit', ( req, res ) => {
+    const { deposit } = req.body;
+    console.log( 'deposit', deposit );
+  } );
+
+
 
 
   router.post( '/', ( req, res ) => {

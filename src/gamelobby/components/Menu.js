@@ -6,7 +6,7 @@ class Menu extends Component {
   constructor( props ) {
     super( props );
     this.state = {
-      list: [ 'Whether', 'History', 'Deposit', 'Air' ],
+      list: [ 'Weather', 'Air', 'History', 'Deposit' ],
     };
     socket.on( 'Number', Number => this.props.setLoc( this.state.list[ Number - 1 ] ) );
   }

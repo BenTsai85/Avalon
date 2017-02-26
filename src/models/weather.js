@@ -1,5 +1,5 @@
 module.exports = ( sequelize, DataTypes ) => {
-  const User = sequelize.define( 'Weather', {
+  const Weather = sequelize.define( 'Weather', {
     temperature: {
       allowNull: true,
       type: DataTypes.FLOAT,

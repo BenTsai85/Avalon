@@ -13,7 +13,7 @@ const returnRouter = function ( io ) {
 
   io.on( 'connection', ( socket ) => {
     console.log("socket");
-    socket.on( 'setHumidity', Hunmidity => io.emit( 'setHunmidity', Hunmidity ) );
+    socket.on( 'setHumidity', Humidity => io.emit( 'setHumidity', Humidity ) );
     socket.on( 'setTemperature', Temperature => io.emit( 'setTemperature', Temperature ) );
     socket.on( 'RFID', RFID => io.emit( 'RFID', RFID ) );
    } );
@@ -36,26 +36,25 @@ const returnRouter = function ( io ) {
     res.json( { test:9487 } );
   } );
 
-  router.get( '/predict', ( req, res ) => {
-    res.json( { predictTemperatur: [0,1,2,3,4,5,6,7], predictHumidity: [0,1,2,3,4,5,6,7] } );
+  router.get( '/predict', async ( req, res ) => {
+    const weathers = await Weather.findAll( {
+      limit: 8,
+      order: [
+        [ 'updatedAt', 'DESC' ]
+      ],
+    } );
+    const temp = weathers.map( w => w.temperature );
+    const humi = weathers.map( w => w.humidity );
+    res.json( { predictTemperatur: temp, predictHumidity: humi } );
   } );
 
-  router.post( '/saveTemperaturePerHour', ( req, res ) => {
-    const { Temperature } = req.body;
-    console.log('Temperature',Temperature);
-  } );
-
-  router.post( '/saveHumidityPerHour', ( req, res ) => {
-    const { Humidity } = req.body;
-    console.log( 'Hunmidity', Hunmidity );
-  } );
-
-  router.post( '/saveSO2PerHour', ( req, res ) => {
-    const { Temperature } = req.body;
-  } );
-
-  router.post( '/savePM2.5PerHour', ( req, res ) => {
-    const { Temperature } = req.body;
+  router.post( '/saveWeatherPerHour', ( req, res ) => {
+    const { Temperature, Humidity } = req.body;
+    const weather = await Weather.create( {
+      temperature: Temperature,
+      humidity: Humidity,
+    } );
+    console.log('weather',Weather);
   } );
 
 

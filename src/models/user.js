@@ -20,6 +20,7 @@ module.exports = ( sequelize, DataTypes ) => {
     },
     surplus: {
       allowNull: false,
+      defaultValue: 0,
       type: DataTypes.INTEGER,
     },
     createdAt: {

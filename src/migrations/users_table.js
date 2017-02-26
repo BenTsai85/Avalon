@@ -21,6 +21,7 @@ module.exports = {
       },
       surplus: {
         allowNull: false,
+        defaultValue: 0,
         type: Sequelize.INTEGER,
       },
       createdAt: {

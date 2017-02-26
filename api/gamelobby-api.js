@@ -48,7 +48,7 @@ const returnRouter = function ( io ) {
     res.json( { predictTemperatur: temp, predictHumidity: humi } );
   } );
 
-  router.post( '/saveWeatherPerHour', ( req, res ) => {
+  router.post( '/saveWeatherPerHour', async ( req, res ) => {
     const { Temperature, Humidity } = req.body;
     const weather = await Weather.create( {
       temperature: Temperature,

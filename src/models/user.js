@@ -18,19 +18,7 @@ module.exports = ( sequelize, DataTypes ) => {
       allowNull: false,
       type: DataTypes.STRING,
     },
-    icon: {
-      allowNull: true,
-      type: DataTypes.BLOB,
-    },
-    win_num: {
-      allowNull: false,
-      type: DataTypes.INTEGER,
-    },
-    lose_num: {
-      allowNull: false,
-      type: DataTypes.INTEGER,
-    },
-    tie_num: {
+    rest: {
       allowNull: false,
       type: DataTypes.INTEGER,
     },

@@ -86,7 +86,7 @@ const returnRouter = function ( io ) {
   } );
 
   router.post( '/Number', ( req, res ) => {
-    console.log('/RFID');
+    console.log('/Number');
     const { Number } = req.body;
     io.emit( 'Number', Number );
     res.json( { test:9487 } );

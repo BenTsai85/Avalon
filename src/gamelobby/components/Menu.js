@@ -8,7 +8,7 @@ class Menu extends Component {
     this.state = {
       list: [ 'Weather', 'Air', 'History', 'Deposit' ],
     };
-    socket.on( 'Number', Number => this.props.setLoc( this.state.list[ Number - 1 ] ) );
+    // socket.on( 'Number', Number => this.props.setLoc( this.state.list[ Number - 1 ] ) );
   }
 
   render() {

@@ -34,7 +34,7 @@ class App extends Component {
         </div>
         <div className="row">
           <div className="col-xs-9">
-            <GameroomList/>
+            <GameroomList />
           </div>
           <div className="col-xs-3">
             <UserList/>

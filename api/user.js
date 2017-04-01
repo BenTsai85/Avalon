@@ -27,7 +27,7 @@ class UserData {
   login( username, password ) {
     for ( let i = 0; i < this.userData.length; i += 1 )
       if ( this.userData[ i ].login_confirm( username, password ) )
-        return { id: i, friendlist: this.userData[ i ].friendlist, };
+        return { id: i, friendlist: this.userData[ i ].friendlist };
     return { id: undefined };
   }
   checkName( value ) {
@@ -38,6 +38,6 @@ class UserData {
   }
 }
 
-var userdata = new UserData();
+const userdata = new UserData();
 
 export default userdata;

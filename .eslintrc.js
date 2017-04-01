@@ -22,5 +22,7 @@ module.exports = {
         "no-mixed-operators": 0,
         "class-methods-use-this": 0,
         "array-bracket-spacing": [ "error", "always" ],
+        "curly": 0,
+        "arrow-parens":0,
     }
 };

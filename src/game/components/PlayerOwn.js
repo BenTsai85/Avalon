@@ -7,53 +7,39 @@ class PlayerOwn extends Component {
     this.state = {
       settimeout: 0,
     };
-    console.log( 'PlayerOwn' );
-  }
-  componentWillMount() {
-  }
-  render_game_record() {
-    const r = [];
-    for ( let i = 0; i < this.props.games_record.length; ++i ) {
-      if ( this.props.games_record[ i ] )
-        r.push( <div style={{ color: 'blue', float: 'left' }} key={i}>O</div> );
 
-      else
-        r.push( <div style={{ color: 'red', float: 'left' }} key={i}>O</div> );
-    }
-    for ( let i = 0; i < ( 5 - this.props.games_record.length ); ++i )
-      r.push( <div key={this.props.games_record.length + i} style={{ float: 'left' }} >O</div> );
-
-    return r;
+    //     username = { v }
+    // isLeader = { this.state.state === 'choosingTeam' && this.state.leader === v }
+    // isVillain = { this.state.isVillain[ i ] }
+    // playerState = { this.state.playerState[ i ] }
+    // isMerlin = { this.state.isMerlin[ i ] }
+    // >
   }
   render() {
-    const img_src = `${this.props.character}.png`;
+    return <div className = { 'own' }>
 
-    return <div className={'own'}>
-      <li>I am:{this.props.ID}</li>
-      <li>my character:{this.props.character}</li>
-      <li>game{this.render_game_record.bind( this )()}</li>
-      <li>stage:{this.props.stage}</li>
+      <li>username:{this.props.username}</li>
+      <li>isLeader:{this.props.isLeader ? 1 : 0}</li>
+      <li>isVillain:{this.props.isVillain.map( v => ( v ? 1 : 0 ) )}</li>
+      <li>playerState:{this.props.playerState}</li>
+      <li>isMerlin:{this.props.isMerlin.map( v => ( v ? 1 : 0 ) )}</li>
       <li><img
-        src={img_src} height="140" width="100" alt=""
+        src={ `${this.props.character}.png` } height="140" width="100" alt=""
         className={`${this.props.className} photo` }
         onClick={() => {
-          if ( this.props.is_leader )
+          if ( this.props.isLeader ||
+              ( this.props.State === 'accassinState' && this.props.character === 'accassin' ) )
             this.props.onclick();
         }}
         onMouseOver={() => {
-          console.log( 'onMouseOver' );
           this.setState( {
-            settimeout: setTimeout( () => this.props.change_show_explaination(), 1000 ),
+            settimeout: setTimeout( () => this.props.showExplaination(), 1000 ),
           } );
         }}
         onMouseOut={() => {
-          console.log( 'onMouseOut' );
           clearTimeout( this.state.settimeout );
         }}
       /></li>
-      <img src="http://www.risk.net/IMG/853/112853/crown-iw.png"
-      height="100" width="140" className={this.props.is_leader ? '' : 'hide'}
-      />
     </div>;
   }
 }

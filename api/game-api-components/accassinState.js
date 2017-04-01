@@ -3,6 +3,7 @@ import State from './State';
 class accassinState extends State {
   constructor( gameapp ) {
     super();
+    this.statename = 'accassinState';
     this.gameapp = gameapp;
   }
 

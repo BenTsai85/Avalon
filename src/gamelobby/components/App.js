@@ -10,7 +10,7 @@ import Deposit from './Deposit';
 import Menu from './Menu';
 import './App.css';
 import Profile from './Profile';
-
+import Sales from './Sales';
 
 const gamelobby_chat = io();
 
@@ -62,6 +62,8 @@ class App extends Component {
       return <History back = { () => this.setState( { loc: 'Menu' } ) } />;
     else if ( this.state.loc === 'Profile' )
       return <Profile back = { () => this.setState( { loc: 'Menu' } ) }/>
+    else if ( this.state.loc === 'Sales' )
+      return <Sales back = { () => this.setState( { loc: 'Menu' } ) }/>
   };
 
   render() {

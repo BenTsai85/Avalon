@@ -11,7 +11,7 @@ class Profile extends Component {
   }
 
   componentWillMount() {
-    fetch( 'http://13.82.96.33:3000/auth/profile' )
+    fetch( 'http://52.179.13.42:3000/auth/profile' )
       .then( res => res.json() )
       .then( res => {
         const { username, email, surplus } = res;

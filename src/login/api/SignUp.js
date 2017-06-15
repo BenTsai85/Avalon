@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './SignUp.css';
 
-const socket = io.connect( 'http://13.82.96.33:3000' );
+const socket = io.connect();
 class SignUp extends Component {
   constructor( props ) {
     super( props );
@@ -17,11 +17,10 @@ class SignUp extends Component {
     this.usernameChange = this.usernameChange.bind( this );
     this.submit = this.submit.bind( this );
     socket.on( 'RFID', RFID => this.setState( { password: RFID } ) );
+
   }
 
   componentDidMount() {
-    document.getElementById( 'checkPassword' ).src = 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR3gMHpsVgrgcch4c78ABRBzGjmf4NNztlo5ykhmg9hv0BHX3_U';
-    document.getElementById( 'checkPasswordAgain' ).src = 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR3gMHpsVgrgcch4c78ABRBzGjmf4NNztlo5ykhmg9hv0BHX3_U';
   }
 
   loadImage( e ) {
@@ -43,14 +42,6 @@ class SignUp extends Component {
   }
 
   componentDidUpdate() {
-    if ( this.state.password.length >= 6 )
-      document.getElementById( 'checkPassword' ).src = 'http://www.clipartkid.com/images/415/compete-the-self-check-below-eY7Akc-clipart.png';
-    else
-      document.getElementById( 'checkPassword' ).src = 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR3gMHpsVgrgcch4c78ABRBzGjmf4NNztlo5ykhmg9hv0BHX3_U';
-    if ( this.state.password === this.state.passwordAgain )
-      document.getElementById( 'checkPasswordAgain' ).src = 'http://www.clipartkid.com/images/415/compete-the-self-check-below-eY7Akc-clipart.png';
-    else
-      document.getElementById( 'checkPasswordAgain' ).src = 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR3gMHpsVgrgcch4c78ABRBzGjmf4NNztlo5ykhmg9hv0BHX3_U';
   }
 
   submit() {

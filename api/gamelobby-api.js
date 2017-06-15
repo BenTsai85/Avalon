@@ -6,6 +6,20 @@ import bodyParser from 'body-parser';
 var spawn = require( 'child_process' ).spawn;
 
 const { User } = models;
+let datas = {
+  name :['coke', '7up', 'apple juice'],
+  time: [ [
+    "Thu Jun 15 2017 20:50:15 GMT+0800 (CST)",
+    "Thu Jun 11 2017 20:50:15 GMT+0800 (CST)"
+  ], [
+    "Thu Jun 15 2017 20:50:15 GMT+0800 (CST)",
+  ], [
+    "Thu Jun 15 2017 20:50:15 GMT+0800 (CST)",
+    "Thu Jun 13 2017 20:50:15 GMT+0800 (CST)",
+    "Thu Jun 13 20117 20:50:15 GMT+0800 (CST)"
+  ] ],
+};
+
 const returnRouter = function ( io ) {
   const router = new Router();
   router.use( bodyParser.urlencoded( { extended: false } ) );
@@ -27,6 +41,14 @@ const returnRouter = function ( io ) {
     res.json( { test:9487 } );
   } );
 
+  router.post( '/setTrade', ( req, res ) => {
+    console.log('/setTrade');
+    const { productName, tradeTime } = req.body;
+    const idx = datas.name.indexOf(productName);
+    datas.time[ idx ].push(tradeTime);
+    io.emit( 'setTrade', req.body );
+    res.json( { test:9999 } );
+  } );
 
   router.post( '/setTemperature', ( req, res ) => {
     console.log('/setTemperature');
@@ -47,6 +69,18 @@ const returnRouter = function ( io ) {
     const humi = weathers.map( w => w.humidity );
     res.json( { recordTemperature: temp, recordHumidity: humi } );
   } );
+
+  router.get( '/getCommodityDatas', async ( req, res ) => {
+    res.json( { datas } );
+  } );
+
+  router.post( '/setCommodityDatas', async ( req, res ) => {
+    const { name, time } = req.body;
+    const idx = datas.name.indexOf(name);
+    datas.time[idx].push(time);
+  } );
+
+
 
   router.post( '/saveWeatherPerHour', async ( req, res ) => {
     const { Temperature, Humidity } = req.body;
